@@ -14,7 +14,7 @@ import java.io.IOException;
 
 public class EditItemController {
     // FXML FILE: EditItemScreen
-
+    private static final String default_init_dir = "src/project/image";
     public AnchorPane EditItemPane;
     public ImageView itemImageView;
     public JFXTextField itemNameField, itemTypeField, itemPriceField;
@@ -24,7 +24,7 @@ public class EditItemController {
     public void selectItemImage(ActionEvent e) throws IOException {
         File file;
         FileChooser fileChooser = new FileChooser();
-        fileChooser.setInitialDirectory(new File("resources/assets"));
+        fileChooser.setInitialDirectory(new File(default_init_dir));
         file = fileChooser.showOpenDialog(confirmButton.getScene().getWindow());
         if(!file.isFile()) return;
         if(!file.getPath().endsWith(".png") || !file.getPath().endsWith(".jpg")

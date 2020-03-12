@@ -37,8 +37,8 @@
       </ImageView>
       <VBox fx:id="loginPrompt" alignment="CENTER" prefHeight="200.0" prefWidth="200.0" spacing="10.0" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="CENTER">
          <children>
-            <TextField fx:id="usernameField" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="30.0" prefWidth="200.0" text="Enter username here" VBox.vgrow="NEVER" />
-            <PasswordField fx:id="passwordField" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="30.0" prefWidth="200.0" text="01010101010101010" />
+            <TextField fx:id="usernameField" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="30.0" prefWidth="200.0" promptText="Enter username here" VBox.vgrow="NEVER" />
+            <PasswordField fx:id="passwordField" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="30.0" prefWidth="200.0" promptText="Enter password here" />
             <Button mnemonicParsing="false" onAction="#adminLogin" prefHeight="25.0" prefWidth="92.0" text="Login">
                <VBox.margin>
                   <Insets />

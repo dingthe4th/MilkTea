@@ -1,7 +1,14 @@
 package project.controllers;
 
+import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
+
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
 
 public class Item {
     /*
@@ -14,21 +21,39 @@ public class Item {
      * item_path = path of image of item
      * item_image = image of the item
      * */
-    private final static String default_item_path = "../resources/assets/default.png";
+    private final static String default_item_path = "src/project/image/default.png";
     public String item_name;
     public String item_type;
     public double item_price;
     public String item_path;
-    public ImageView item_image;
+    public ImageView item_image = new ImageView();
+    public HBox item_display = new HBox(30);
 
-    Item(String a, String b, double c, String d) {
-        if(d == null) d = default_item_path;
+    // constructor
+    Item(String a, String b, double c, String d) throws IOException {
+        if(d.equals("DEFAULT")) d = default_item_path;
+        Image image = new Image(new FileInputStream(d));
+
         this.item_name = a;
         this.item_type = b;
         this.item_price = c;
         this.item_path = d;
-        this.item_image = new ImageView(new Image(item_path));
+        this.item_image.setImage(image);
+        this.item_image.setFitWidth(100);
+        this.item_image.setFitHeight(100);
+        create_item_display();
     }
+
+    // creates an HBox to be displayed to the G.U.I.
+    private void create_item_display() {
+        Label a = new Label(item_name);
+        Label b = new Label(Double.toString(item_price));
+        VBox vBox = new VBox(20);
+        vBox.getChildren().addAll(a,b);
+        item_display.getChildren().addAll(item_image,vBox);
+    }
+
+    public HBox getItem_display() { return item_display; }
 
     public String getItem_name() {
         return item_name;
