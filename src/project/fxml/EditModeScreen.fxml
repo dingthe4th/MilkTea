@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXTabPane?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.TilePane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Rectangle?>
+
+<BorderPane fx:id="EditModePane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="1366.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="project.controllers.EditModeController">
+   <center>
+      <JFXTabPane prefHeight="768.0" prefWidth="1040.0" BorderPane.alignment="CENTER">
+         <tabs>
+            <Tab text="RED">
+               <content>
+                  <TilePane prefHeight="200.0" prefWidth="200.0">
+                     <children>
+                        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="200.0" stroke="BLACK" strokeType="INSIDE" width="200.0" />
+                        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="200.0" stroke="BLACK" strokeType="INSIDE" width="200.0" />
+                        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="200.0" stroke="BLACK" strokeType="INSIDE" width="200.0" />
+                        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="200.0" stroke="BLACK" strokeType="INSIDE" width="200.0" />
+                        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="200.0" stroke="BLACK" strokeType="INSIDE" width="200.0" />
+                     </children></TilePane>
+               </content>
+            </Tab>
+            <Tab text="ORANGE">
+               <content>
+                  <TilePane prefHeight="200.0" prefWidth="200.0" />
+               </content>
+            </Tab>
+            <Tab text="YELLOW">
+               <content>
+                  <TilePane prefHeight="200.0" prefWidth="200.0" />
+               </content>
+            </Tab>
+            <Tab text="GREEN">
+               <content>
+                  <TilePane prefHeight="200.0" prefWidth="200.0" />
+               </content>
+            </Tab>
+            <Tab text="BLUE">
+               <content>
+                  <TilePane prefHeight="200.0" prefWidth="200.0" />
+               </content>
+            </Tab>
+            <Tab text="VIOLET">
+               <content>
+                  <TilePane prefHeight="200.0" prefWidth="200.0" />
+               </content>
+            </Tab>
+         </tabs>
+      </JFXTabPane>
+   </center>
+   <left>
+      <Pane prefHeight="768.0" prefWidth="41.0" BorderPane.alignment="CENTER">
+         <children>
+            <JFXButton layoutX="9.0" layoutY="2.0" onAction="#goToHomeScreen" prefHeight="47.0" prefWidth="23.0" text="X" />
+         </children>
+      </Pane>
+   </left>
+   <right>
+      <VBox prefHeight="768.0" prefWidth="325.0" BorderPane.alignment="CENTER">
+         <children>
+            <JFXButton onAction="#addItem" prefHeight="161.0" prefWidth="333.0" text="ADD" />
+            <JFXButton onAction="#editItem" prefHeight="161.0" prefWidth="333.0" text="EDIT" />
+            <JFXButton onAction="#deleteItem" prefHeight="161.0" prefWidth="333.0" text="DELETE" />
+         </children>
+      </VBox>
+   </right>
+</BorderPane>
