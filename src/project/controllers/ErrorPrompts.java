@@ -30,7 +30,7 @@ public class ErrorPrompts {
     public static boolean warning_home_screen(ActionEvent e) {
         Alert exitPrompt = new Alert(Alert.AlertType.CONFIRMATION);
         exitPrompt.setHeaderText("CONFIRM.");
-        exitPrompt.setContentText("Back to main menu? \n TEXT TEXT TEXT.");
+        exitPrompt.setContentText("Back to main menu?.");
         Optional<ButtonType> userChoice = exitPrompt.showAndWait();
         return userChoice.get() == (ButtonType.OK);
     }

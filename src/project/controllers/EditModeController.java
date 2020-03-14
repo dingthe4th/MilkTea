@@ -21,20 +21,22 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
+import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.*;
 
 public class EditModeController {
     /*
-    * @TODO REWRITE THE TEXT FILE OF ALL ITEMS
-    *   ALL ITEMS FROM HASH MAP -> item_info.txt
     * EditModePane - main pane of this window
     * tabPane - contains all the items
     * screenStatus - label that state the status of the screen TODO can be deleted
     * itemHashMap - hash map of all items in the shop (caught from previous window)
     * itemHashSet - hash set of all item types in the shop
+    * item_list_info - address of text file of the items in the store
     */
 
+    private static final String item_list_info = "src/project/text/item_info/item_info.txt";
     public BorderPane EditModePane;
     public JFXTabPane tabPane;
     public Label screenStatus;
@@ -42,6 +44,12 @@ public class EditModeController {
     private Set<String> itemHashSet;
     private Item selectedItem;
 
+    /*  loads AddItemScreen.fxml
+    *   This method is used to add items to the current
+    *   list of items
+    *   FXML : AddItemScreen.fxml
+    *   Controller : AddItemController
+    */
     public void addItem(ActionEvent e) throws IOException {
         EditModePane.setOpacity(.25);
         FXMLLoader loader = new FXMLLoader(getClass().getResource("../fxml/AddItemScreen.fxml"));
@@ -58,6 +66,12 @@ public class EditModeController {
         EditModePane.setOpacity(1.0);
     }
 
+    /*  loads DeleteItemScreen.fxml
+     *   This method is used to add items to the current
+     *   list of items
+     *   FXML : DeleteItemScreen.fxml
+     *   Controller : DeleteItemController
+     */
     public void deleteItem(ActionEvent e) throws IOException {
         if (isItemSelected()) {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("../fxml/DeleteItemScreen.fxml"));
@@ -76,6 +90,12 @@ public class EditModeController {
         else  screenStatus.setText("Please select an item to be edited!");
     }
 
+    /*  loads EditItemScreen.fxml
+     *   This method is used to add items to the current
+     *   list of items
+     *   FXML : EditItemScreen.fxml
+     *   Controller : EditItemController
+    */
     public void editItem(ActionEvent e) throws IOException {
         if (isItemSelected()) {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("../fxml/EditItemScreen.fxml"));
@@ -93,9 +113,17 @@ public class EditModeController {
         else  screenStatus.setText("Please select an item to be edited!");
     }
 
+    /*  loads HomeScreen.fxml
+     *   This method is used go back to the home screen
+     *   FXML : HomeScreen.fxml
+     *   Controller : HomeScreenController
+    */
     public void goToHomeScreen() throws IOException {
         boolean confirm = ErrorPrompts.warning_home_screen(new ActionEvent());
         if (!confirm) return;
+
+        // update item list
+        updateItemList();
 
         // loads new fxml file
         FXMLLoader loader = new FXMLLoader(getClass().getResource("../fxml/HomeScreen.fxml"));
@@ -108,6 +136,7 @@ public class EditModeController {
         stage.show();
     }
 
+    //  This method is used to check if an item is selected or not
     public boolean isItemSelected() {
        // isSelected - flag if an item is selected or not
        boolean isSelected = false;
@@ -131,6 +160,33 @@ public class EditModeController {
        else screenStatus.setText("No item is selected.");
 
        return isSelected;
+    }
+
+    // This method updates the text file of the item list
+    private void updateItemList() throws IOException {
+        File file = new File(item_list_info);
+        /*
+        * Editor note:
+        * @param action
+        * if true - append
+        * else overwrite
+        * */
+        final boolean action = false;
+        FileWriter writer = new FileWriter(file,action);
+
+        // write all item entry to the text file
+        for(Item entry : itemHashMap.keySet()) {
+            String s = ","; // delimiter
+            String a = entry.item_name;
+            String b = entry.item_type;
+            String c = Double.toString(entry.item_price);
+            String d = entry.item_path;
+            String x = a+s+b+s+c+s+d+"\n";
+            writer.write(x);
+        }
+
+        // close text file
+        writer.close();
     }
 
     // catch information from HomeScreenController

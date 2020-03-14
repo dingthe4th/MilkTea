@@ -41,7 +41,8 @@ public class AddItemController {
     public AnchorPane AddItemPane;
     public ImageView itemImageView;
     public JFXTextField itemNameField, itemTypeField, itemPriceField;
-    public Label itemPathField, screenStatus;
+    public Label screenStatus;
+    public Label itemPathField;
     public JFXButton cancelButton, confirmButton;
 
     // gets the itemImage -> itemImageView
@@ -54,7 +55,7 @@ public class AddItemController {
         if(!file.isFile()) return;
         /* only accept image files */
         if(!ErrorPrompts.isPicture(file)) return;
-        itemPathField.setText(file.getPath());
+        itemPathField.setText(default_init_dir+"/"+file.getName());
         itemImageView.setImage(new Image(file.getName()));
     }
 

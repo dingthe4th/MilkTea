@@ -31,7 +31,7 @@ public class Item {
 
     // constructor
     Item(String a, String b, double c, String d) throws IOException {
-        if(d.equals("DEFAULT")) d = default_item_path;
+        if(d.equals("default")) d = default_item_path;
         Image image = new Image(new FileInputStream(d));
 
         this.item_name = a;

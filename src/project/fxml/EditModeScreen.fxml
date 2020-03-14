@@ -24,7 +24,6 @@
             <JFXButton onAction="#addItem" prefHeight="161.0" prefWidth="333.0" text="ADD" />
             <JFXButton onAction="#editItem" prefHeight="161.0" prefWidth="333.0" text="EDIT" />
             <JFXButton onAction="#deleteItem" prefHeight="161.0" prefWidth="333.0" text="DELETE" />
-            <JFXButton onAction="#isItemSelected" prefHeight="161.0" prefWidth="333.0" text="TEST" />
          </children>
       </VBox>
    </right>

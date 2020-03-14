@@ -54,7 +54,7 @@ public class EditItemController {
         if(!file.isFile()) return;
         /* only accept image files */
         if(!ErrorPrompts.isPicture(file)) return;
-        itemPathField.setText(file.getPath());
+        itemPathField.setText(default_init_dir+"/"+file.getName());
         itemImageView.setImage(new Image(file.getName()));
     }
 
