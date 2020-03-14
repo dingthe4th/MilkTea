@@ -43,6 +43,14 @@ public class ErrorPrompts {
         return userChoice.get() == (ButtonType.OK);
     }
 
+    static boolean warning_delete_item(ActionEvent e) {
+        Alert exitPrompt = new Alert(Alert.AlertType.CONFIRMATION);
+        exitPrompt.setHeaderText("This item will be deleted in the list.");
+        exitPrompt.setContentText("Continue?");
+        Optional<ButtonType> userChoice = exitPrompt.showAndWait();
+        return userChoice.get() == (ButtonType.OK);
+    }
+
     public static boolean isPicture(File file) throws IOException {
         /* returns true if file is a picture or not */
         return (ImageIO.read(file) != null);

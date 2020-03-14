@@ -32,7 +32,7 @@ public class CashierController {
     private HashMap<Item,String> itemHashMap;
     private Set<String> itemHashSet;
 
-    // catch information from previous screen
+    // catch information from HomeScreen
     void catchInformation(HashMap<Item, String> hm) {
         this.itemHashMap = new HashMap<>(hm);
         this.itemHashSet = new HashSet<>(hm.values());
@@ -88,6 +88,7 @@ public class CashierController {
             *
             * after each loop, itemListView will inherit all entries from tempItemListView
              */
+
             JFXListView<HBox> itemListView = new JFXListView<>();
             ObservableList<HBox> tempItemListView = FXCollections.observableArrayList();
 
@@ -98,8 +99,6 @@ public class CashierController {
             * a given system.
              */
             itemListView.setOrientation(Orientation.VERTICAL);
-            itemListView.setPrefSize(200,200);
-
             /*
             * For each loop in while loop, a tab will be generated (with the name of
             * the item_type stored in the HashSet)
@@ -107,9 +106,9 @@ public class CashierController {
             String currentIterator = (String) iterator.next();
             Tab tab = new Tab(currentIterator);
 //            Currently commented out since tile pane does not work with the author's taste
-//            TilePane tilePane = new TilePane(50,50);
-//            tilePane.setOrientation(Orientation.HORIZONTAL);
-//            tilePane.setPrefColumns(4);
+            TilePane tilePane = new TilePane(50,50);
+            tilePane.setOrientation(Orientation.HORIZONTAL);
+            tilePane.setPrefColumns(4);
 
             /* get all items for specific item type in the hash set*/
             for(Item item: itemHashMap.keySet()) {
@@ -120,10 +119,9 @@ public class CashierController {
             }
 
             itemListView.setItems(tempItemListView);
-            // tab.setContent(tilePane); // FOR TILE PANE | NOT WORKING
+//            tab.setContent(tilePane); // FOR TILE PANE | NOT WORKING
             tab.setContent(itemListView);
             tabPane.getTabs().add(tab);
         }
     }
-
 }

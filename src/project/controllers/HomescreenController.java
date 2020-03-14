@@ -4,6 +4,9 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 
@@ -44,6 +47,7 @@ public class HomeScreenController implements Initializable {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("../fxml/EditModeScreen.fxml"));
         Parent root = loader.load();
         EditModeController editModeController = loader.getController();
+        editModeController.catchInformation(itemHashMap);
         Scene scene = new Scene(root);
         Stage stage = (Stage) this.HomeScreenPane.getScene().getWindow();
         stage.setScene(scene);

@@ -21,7 +21,7 @@ public class Item {
      * item_path = path of image of item
      * item_image = image of the item
      * */
-    private final static String default_item_path = "src/project/image/default.png";
+    public final static String default_item_path = "src/project/image/default.png";
     public String item_name;
     public String item_type;
     public double item_price;
@@ -46,6 +46,7 @@ public class Item {
 
     // creates an HBox to be displayed to the G.U.I.
     private void create_item_display() {
+        item_display.setMaxSize(200,200);
         Label a = new Label(item_name);
         Label b = new Label(Double.toString(item_price));
         VBox vBox = new VBox(20);

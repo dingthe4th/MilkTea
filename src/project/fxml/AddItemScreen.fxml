@@ -31,6 +31,6 @@
          </children>
       </HBox>
       <Label fx:id="screenStatus" layoutX="265.0" layoutY="38.0" text="Please fill-out the information needed below:" />
-      <Label fx:id="itemPathField" layoutX="372.0" layoutY="311.0" prefHeight="17.0" prefWidth="377.0" text="Select filepath of item image display." />
+      <Label fx:id="itemPathField" layoutX="372.0" layoutY="311.0" prefHeight="17.0" prefWidth="377.0" text="src/project/image" />
    </children>
 </AnchorPane>
