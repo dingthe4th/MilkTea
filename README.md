@@ -1,9 +1,21 @@
+@Authors
+  Ding Bayeta IV
+  Teddy Benito II
+  Joseph Portugal
+  Isaiah Tupal
+
 CURRENT TODOS:
-  1. Image is not showing if you run the program
-      Current fix (but not working)
-          set a 'resource' folder with the same rank as 'src' folder
-          and assign it as RESOURCE folder in Project Settings - Modules - Sources - Resources
-  2. Load item from .txt or .xlsx file
+  1. Make the cashier mode environment work.
+      If item is clicked, then a window will pop-up showing that item.
+          The cashier (hereinafter referred to as user) can choose the ff:
+                a. size of drink      | S / M / L
+                b. sugar level        | 0 - 100
+                c. amount of ice      | no ice - many ice
+                d. add - ons          | 
+                e. can avail discount | for PWD/Senior citizen
+      Each order details must be stored for statistics purposes.
+      
+  2. Make the statistics screen mode work.
 
 # MilkTea
 A point of sale system for the business Taste from the Greens. A project for the completion of the requirements in the course software design and engineering (SOFDDESG).
