@@ -5,15 +5,9 @@
   Isaiah Tupal
 
 CURRENT TODOS:
-  1. Make the cashier mode environment work.
-      If item is clicked, then a window will pop-up showing that item.
-          The cashier (hereinafter referred to as user) can choose the ff:
-                a. size of drink      | S / M / L
-                b. sugar level        | 0 - 100
-                c. amount of ice      | no ice - many ice
-                d. add - ons          | 
-                e. can avail discount | for PWD/Senior citizen
-      Each order details must be stored for statistics purposes.
+  1. Make the add-on toggle button in OrderScreen work.
+    The idea is when you press the toggle -> ON, a listView (horizontal) of the add on items should be displayed
+    at the top of the borderPane. Please also think of a way of how to increment the qty of this add on per order.
       
   2. Make the statistics screen mode work.
 
