@@ -5,47 +5,120 @@ import com.jfoenix.controls.JFXTabPane;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Orientation;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.ListView;
 import javafx.scene.control.Tab;
-import javafx.scene.control.TabPane;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.TilePane;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 import java.io.IOException;
 import java.net.URL;
 import java.util.*;
 
-public class CashierController {
+public class CashierController implements Initializable {
+
     /*
+    * Current Screen: CashierScreen.fxml | Controller: CashierController
     * Previous Screen: HomeScreen.fxml | Controller: HomeScreenController
     * This class handles the order management of the program
     */
+
     public BorderPane CashierPane;
     public JFXTabPane tabPane;
+
+    /*
+     * @param
+     *  orderHashMap
+     *      maps the order to its quantity (will be used in the statistics function)
+     *      e.g. Item -> chocolate, 1 when ordered at instance 1
+     *      When another order has chocolate drink, the 1 will increment to 2
+     *  itemAddOnList TODO
+     *      this is the array list of the add on items
+     *      should be passed to order screen
+     *  itemHashMap
+     *      hash map of all items in the shop
+     *  itemHashSet
+     *      set that contains the item types found in the shop
+     *  selectedItem
+     *      the item that is selected / highlighted
+     * */
+    private HashMap<Order,Integer> orderHashMap = new HashMap<>();
+    private ArrayList<Item> itemAddOnList = new ArrayList<>();
     private HashMap<Item,String> itemHashMap;
     private Set<String> itemHashSet;
+    private Item selectedItem;
 
-    // catch information from HomeScreen
-    void catchInformation(HashMap<Item, String> hm) {
-        this.itemHashMap = new HashMap<>(hm);
-        this.itemHashSet = new HashSet<>(hm.values());
+    /*
+    * @param
+    *   orderObservableList = list of all items that is ordered
+    *   orderTableView = the main parent of the items ordered (for display)
+    *   orderDetailsColumn, orderPriceColumn -> columns for orderTableView
+    * */
+    private ObservableList<Order> orderObservableList ;
+    public TableView<Order> orderTableView;
+    public TableColumn<Order, String> orderDetailsColumn;
+    public TableColumn<Order, Double> orderPriceColumn;
 
-        // checker
-        System.out.println(itemHashMap.size());            // Expected : 5
-        System.out.println(itemHashSet.size());            // Expected : 4
 
-        // generate tabs
-        generateTabs();
+    @Override public void initialize(URL location, ResourceBundle resources)    {
+        selectedItem = null;
+
+        // initializing table view and its columns
+        orderObservableList = FXCollections.observableArrayList();
+        orderTableView.setItems(orderObservableList);
+        orderDetailsColumn.setCellValueFactory(new PropertyValueFactory<>("orderDetails"));
+        orderPriceColumn.setCellValueFactory(new PropertyValueFactory<>("orderPrice"));
     }
 
-    // go back to home screen
+    //  This method is used to check if an item is selected or not
+    private boolean isItemSelected() {
+        // gets the list view of item display from the current tab in the tabPane
+        JFXListView<HBox> list = (JFXListView<HBox>) tabPane.getSelectionModel().getSelectedItem().getContent();
+        // gets the particular HBox container of the selected item
+        HBox box = list.getSelectionModel().getSelectedItem();
+        // if an item is really selected, check if it is registered in the itemHashMap
+        for(Item key : itemHashMap.keySet()) {
+            // if the item_display of 'key' is the same as the selected item display 'box'
+            // returns isSelected as true, meaning an item is selected
+            if (key.item_display.equals(box)) {
+                selectedItem = key;
+                return true;
+            }
+        }
+        return false;
+    }
+
+    // This method is used to go to OrderScreen
+    public void goToOrderScreen() throws IOException {
+        if(!isItemSelected()) return;
+        CashierPane.setOpacity(.25);
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("../fxml/OrderScreen.fxml"));
+        Parent root = loader.load();
+        OrderController orderController = loader.getController();
+        OrderController.injectCashierController(this);
+        orderController.catchInformation(selectedItem,itemHashMap,orderHashMap,orderObservableList);
+        Scene scene = new Scene(root);
+        Stage stage = new Stage();
+        stage.initStyle(StageStyle.UNDECORATED);
+        stage.initModality(Modality.APPLICATION_MODAL);
+        stage.setScene(scene);
+        stage.showAndWait();
+        CashierPane.setOpacity(1.0);
+    }
+
+    // This method is used to go back to home screen
     public void goToHomeScreen() throws IOException {
         boolean confirm = ErrorPrompts.warning_home_screen(new ActionEvent());
         if (!confirm) return;
@@ -61,8 +134,28 @@ public class CashierController {
         stage.show();
     }
 
-    // generate tabs to tab pane
-    public void generateTabs() {
+    // This method is used to catch information from OrderScreen
+    void catchOrderDetails(ObservableList<Order> orderList, HashMap<Order, Integer> ohm) {
+        orderHashMap = new HashMap<>(ohm);
+        orderObservableList = FXCollections.observableArrayList(orderList);
+        orderTableView.setItems(orderObservableList);
+    }
+
+    // This method is used to catch information from HomeScreen
+    void catchInformation(HashMap<Item, String> hm) {
+        this.itemHashMap = new HashMap<>(hm);
+        this.itemHashSet = new HashSet<>(hm.values());
+
+        // checker
+        System.out.println(itemHashMap.size());            // Expected : 5
+        System.out.println(itemHashSet.size());            // Expected : 4
+
+        // generate tabs
+        generateTabs();
+    }
+
+    // This method is used to generate tabs to tab pane
+    private void generateTabs() {
         /*
         * Tab names are based from the item type of the shop
         * e.g. Red, Black, Blue, ... , AddOns.
@@ -75,6 +168,7 @@ public class CashierController {
 
         Iterator iterator = itemHashSet.iterator();
         while (iterator.hasNext()) {
+
             /*
             * itemListView = list for all key items of the current iterator (item type value)
             * e.g.
@@ -104,24 +198,42 @@ public class CashierController {
             * the item_type stored in the HashSet)
              */
             String currentIterator = (String) iterator.next();
-            Tab tab = new Tab(currentIterator);
-//            Currently commented out since tile pane does not work with the author's taste
-            TilePane tilePane = new TilePane(50,50);
-            tilePane.setOrientation(Orientation.HORIZONTAL);
-            tilePane.setPrefColumns(4);
+
+            /* prevent from creating a add-on tab */
+            if(currentIterator.equalsIgnoreCase("add on")) continue;
+
+            Tab tab = new Tab(currentIterator.toUpperCase());
 
             /* get all items for specific item type in the hash set*/
             for(Item item: itemHashMap.keySet()) {
                 if(item.getItem_type().equals(currentIterator)) {
-//                  tilePane.getChildren().add(item.item_display);
                     tempItemListView.add(item.item_display);
                 }
             }
 
+            /* populate itemListView */
             itemListView.setItems(tempItemListView);
-//            tab.setContent(tilePane); // FOR TILE PANE | NOT WORKING
+
+            /* if item is clicked twice, opens order screen */
+            itemListView.setOnMouseClicked(new EventHandler<MouseEvent>() {
+                @Override
+                public void handle(MouseEvent click) {
+                    if (click.getClickCount() == 2) {
+                        isItemSelected();
+                        try {
+                            goToOrderScreen();
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }
+            });
+
+            /* set up tab */
             tab.setContent(itemListView);
             tabPane.getTabs().add(tab);
         }
     }
+
+
 }

@@ -244,7 +244,7 @@ public class EditModeController {
              * the item_type stored in the HashSet)
              */
             String currentIterator = (String) iterator.next();
-            Tab tab = new Tab(currentIterator);
+            Tab tab = new Tab(currentIterator.toUpperCase());
 //            Currently commented out since tile pane does not work with the author's taste
 //            TilePane tilePane = new TilePane(50,50);
 //            tilePane.setOrientation(Orientation.HORIZONTAL);

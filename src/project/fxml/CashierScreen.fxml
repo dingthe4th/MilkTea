@@ -2,10 +2,10 @@
 
 <?import com.jfoenix.controls.JFXButton?>
 <?import com.jfoenix.controls.JFXTabPane?>
-<?import com.jfoenix.controls.JFXTreeTableView?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.TreeTableColumn?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
@@ -43,13 +43,12 @@
                   </Label>
                </children>
             </HBox>
-            <JFXTreeTableView maxHeight="1.7976931348623157E308" prefHeight="717.0" prefWidth="336.0">
-               <columns>
-                  <TreeTableColumn prefWidth="75.0" text="Qty" />
-                  <TreeTableColumn prefWidth="193.00003051757812" text="Item" />
-                  <TreeTableColumn prefWidth="67.0" text="Price" />
-               </columns>
-            </JFXTreeTableView>
+            <TableView fx:id="orderTableView" prefHeight="633.0" prefWidth="325.0">
+              <columns>
+                <TableColumn fx:id="orderDetailsColumn" prefWidth="202.0" text="ORDER DETAILS" />
+                <TableColumn fx:id="orderPriceColumn" minWidth="0.0" prefWidth="93.0" text="PRICE" />
+              </columns>
+            </TableView>
             <HBox prefHeight="100.0" prefWidth="200.0">
                <children>
                   <JFXButton text="Void transaction" />

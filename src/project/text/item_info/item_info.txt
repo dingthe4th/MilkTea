@@ -1,1 +1,3 @@
-hotdog,typex,1.0,src/project/image/default.png
+Sabu,single,69.0,src/project/image/default.png
+Ding,add on,60.0,src/project/image/default.png
+Isaiah,Malandi pero pogi,69.0,src/project/image/default.png
