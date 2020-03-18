@@ -67,6 +67,12 @@ public class OrderController implements Initializable {
         buttonActions();
     }
 
+    // This method handles cancel button — just close the stage without return value
+    public void setCancelButton(ActionEvent e) {
+        Stage stage = (Stage) cancelButton.getScene().getWindow();
+        stage.close();
+    }
+
     /* This method handles the confirm button of this window
     *       After confirming the final order adds order to the list
     *       and pass it to the CashierScreen controller
