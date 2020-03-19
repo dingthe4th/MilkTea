@@ -3,6 +3,8 @@ package project.controllers;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleStringProperty;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 public class Order {
@@ -23,7 +25,8 @@ public class Order {
     private final static double discount_rate = 0.25;
     private int size, sugar, ice, addOnQty;
     private boolean isAddOn, discount;
-    private Item order, addOn;
+    private Item order;
+    private HashMap<Item,Integer> addOn;
 
     // TableView details
     SimpleStringProperty orderDetails;
@@ -50,14 +53,14 @@ public class Order {
      *   2 ----- less
      *   3 ----- no ice
      */
-    Order(Item order, int size, int sugar, int ice, boolean isAddOn, Item addOn, int addOnQty, boolean discount) {
+    Order(Item order, int size, int sugar, int ice, boolean isAddOn,
+          HashMap<Item,Integer> addOn, boolean discount) {
         this.order = order;
         this.size = size;
         this.sugar = sugar;
         this.ice = ice;
         this.isAddOn = isAddOn;
-        this.addOnQty = addOnQty;
-        this.addOn = addOn;
+        this.addOn = new HashMap<>(addOn);
         this.discount = discount;
 
         orderDetails = new SimpleStringProperty(orderFullDetails(this));
@@ -121,7 +124,10 @@ public class Order {
 
         // add to total if there is addOn order
         if(item.isAddOn) {
-            total += (item.addOn.item_price*item.addOnQty);
+            for(Item temp : item.addOn.keySet()) {
+                int qty = item.addOn.get(temp);
+                total += (temp.item_price * qty);
+            }
         }
 
         // apply discount if applicable
@@ -206,10 +212,13 @@ public class Order {
             default:
                 break;
         }
+
         // add to total if there is addOn order
         if(item.isAddOn) {
-            String temp = Integer.toString(item.addOnQty);
-            order = order.concat(temp + " pc/s " + item.addOn.item_name);
+            for(Item temp : item.addOn.keySet()) {
+                String qty = Integer.toString(item.addOn.get(temp));
+                order = order.concat(qty+" pcs "+temp.item_name+"\n");
+            }
         }
         return order;
     }

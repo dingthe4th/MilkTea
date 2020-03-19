@@ -22,6 +22,7 @@ public class Item {
      * item_image = image of the item
      * */
     public final static String default_item_path = "src/project/image/default.png";
+    private static final double image_size = 100;
     public String item_name;
     public String item_type;
     public double item_price;
@@ -31,6 +32,10 @@ public class Item {
 
     // constructor
     Item(String a, String b, double c, String d) throws IOException {
+        double img_size = image_size;
+        if(b.equalsIgnoreCase("add on")) {
+            img_size /= 2;
+        }
         if(d.equals("default")) d = default_item_path;
         Image image = new Image(new FileInputStream(d));
 
@@ -39,8 +44,8 @@ public class Item {
         this.item_price = c;
         this.item_path = d;
         this.item_image.setImage(image);
-        this.item_image.setFitWidth(100);
-        this.item_image.setFitHeight(100);
+        this.item_image.setFitWidth(img_size);
+        this.item_image.setFitHeight(img_size);
         create_item_display();
     }
 

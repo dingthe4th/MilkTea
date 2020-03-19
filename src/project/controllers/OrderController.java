@@ -1,18 +1,21 @@
 package project.controllers;
 
 import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXListView;
 import com.jfoenix.controls.JFXToggleButton;
+import com.sun.org.apache.xpath.internal.operations.Or;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Label;
-import javafx.scene.control.RadioButton;
-import javafx.scene.control.Toggle;
-import javafx.scene.control.ToggleGroup;
+import javafx.geometry.Orientation;
+import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseButton;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
@@ -26,34 +29,35 @@ public class OrderController implements Initializable {
     public JFXButton confirmButton, cancelButton;
     public JFXToggleButton addOnToggle;
     public JFXToggleButton discountToggle;
+
+    /*
+    * These are the group of RadioButtons
+    * in OrderScreen.fxml
+    */
     public ToggleGroup cupSize;
     public ToggleGroup iceSize;
     public ToggleGroup sugarLevel;
-    public Label orderPriceLabel,orderNameLabel;
+
+    public Label orderPriceLabel;
+    public Label orderNameLabel;
+
     public ImageView itemImage;
 
-    /*
-     * @param
-     *  orderHashMap
-     *      maps the order to its quantity (will be used in the statistics function)
-     *      e.g. Item -> chocolate, 1 when ordered at instance 1
-     *      When another order has chocolate drink, the 1 will increment to 2
-     *  itemAddOnList TODO
-     *      this is the array list of the add on items
-     *      should be caught from CashierScreen
-     *  itemHashMap
-     *      hash map of all items in the shop
-     *  itemHashSet
-     *      set that contains the item types found in the shop
-     *  selectedItem
-     *      the item that is selected / highlighted
-     * */
+
+    public JFXListView addOnListView;
+    private HashMap<Item,Integer> addOnHashMap;
+    private ObservableList<String> itemAddOnObservableList_String;
+
+    public JFXListView addOnDisplayListView;
+    private ObservableList<HBox> itemAddOnDisplayObservableList;
+
+    private ArrayList<Item> itemAddOnList;
     private ObservableList<Order> orderList;
-    private ArrayList<Item> itemAddOnList = new ArrayList<>();
     private HashMap<Order,Integer> orderHashMap;
     private HashMap<Item,String> itemHashMap;
     private Set<String> itemHashSet;
     private Item selectedItem;
+    private boolean newOrder;
 
     // CURRENT ORDER DETAILS (resets every order)
     private static final double discount_rate = 0.25;
@@ -63,11 +67,25 @@ public class OrderController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        addOnHashMap = new HashMap<>();
+
+        itemAddOnDisplayObservableList = FXCollections.observableArrayList();
+        itemAddOnObservableList_String = FXCollections.observableArrayList();
         orderList = FXCollections.observableArrayList();
+
+        addOnListView.setItems(itemAddOnObservableList_String);
+        addOnListView.setMaxSize(120,260);
+
+        addOnDisplayListView.setItems(itemAddOnDisplayObservableList);
+        addOnDisplayListView.setOrientation(Orientation.HORIZONTAL);
+        addOnDisplayListView.setMaxSize(600, 70);
+
+        OrderScreenPane.getTop().setVisible(false);
+
         buttonActions();
     }
 
-    // This method handles cancel button — just close the stage without return value
+    /* This method handles cancel button — just close the stage without return value */
     public void setCancelButton(ActionEvent e) {
         Stage stage = (Stage) cancelButton.getScene().getWindow();
         stage.close();
@@ -153,7 +171,7 @@ public class OrderController implements Initializable {
                 break;
         }
 
-        Order order = new Order(selectedItem,cup,sugar,ice,isAddOn,selectedItem,0,isDiscount);
+        Order order = new Order(selectedItem,cup,sugar,ice,isAddOn,addOnHashMap,isDiscount);
 
         // check if order already existed
         boolean found = false;
@@ -172,7 +190,7 @@ public class OrderController implements Initializable {
             orderHashMap.put(order,1);
         }
 
-        cashierController.catchOrderDetails(orderList,orderHashMap);
+        cashierController.catchOrderDetails(orderList,orderHashMap,newOrder);
         Stage stage = (Stage) confirmButton.getScene().getWindow();
         stage.close();
     }
@@ -201,6 +219,10 @@ public class OrderController implements Initializable {
             @Override
             public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
                 isAddOn = addOnToggle.isSelected();
+                OrderScreenPane.getTop().setVisible(isAddOn);
+                if(isAddOn) {
+                    showAddOnList();
+                }
             }
         });
 
@@ -279,28 +301,122 @@ public class OrderController implements Initializable {
                 break;
         }
 
+        // Calculates the add on price then add to temp
+        if(isAddOn) {
+            for(Item item : addOnHashMap.keySet()) {
+                int qty = addOnHashMap.get(item);
+                temp += (item.item_price * qty);
+            }
+        }
+
         if(isDiscount) temp = temp - (temp * discount_rate);
 
         return temp;
     }
 
-    // This method is used to inject cashier controller here
+    /* This method is used to get the add ons per order */
+    private void showAddOnList() {
+        // Add listener to the list view
+        addOnDisplayListView.setOnMouseReleased(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent e) {
+                if (e.isPrimaryButtonDown() && e.isSecondaryButtonDown()) {
+                    // Do nothing if user is still holding the button
+                    return;
+                }
+
+                // Add item to the orderList and update the price label
+                else if (e.getButton() == MouseButton.PRIMARY) {
+                    // This is the add on item that is selected
+                    Item currentItem = getAddOnItemSelected();
+
+                    // If nothing is selected do nothing
+                    if(currentItem == null) {
+                        return;
+                    }
+
+                    // Update item details to the Add On Hash map
+                    if(addOnHashMap.keySet().contains(currentItem)) {
+                        int qty = addOnHashMap.get(currentItem);
+                        addOnHashMap.replace(currentItem,qty+1);
+                    } else {
+                        addOnHashMap.put(currentItem,1);
+                    }
+
+                    itemAddOnObservableList_String.add(getAddOnItemSelected().item_name);
+                    orderPriceLabel.setText(Double.toString(getCalculatedPrice()));
+
+                // Remove the item from the orderList if exist and update the price label
+                } else if (e.getButton() == MouseButton.SECONDARY) {
+                    // This is the add on item that is selected
+                    Item currentItem = getAddOnItemSelected();
+
+                    // If nothing is selected do nothing
+                    if(getAddOnItemSelected() == null) {
+                        return;
+                    }
+
+                    // Update item details to the Add On Hashmap
+                    if(addOnHashMap.keySet().contains(currentItem)) {
+                        int qty = addOnHashMap.get(currentItem);
+                        addOnHashMap.replace(currentItem,qty-1);
+                    }
+
+                    itemAddOnObservableList_String.remove(getAddOnItemSelected().item_name);
+                    orderPriceLabel.setText(Double.toString(getCalculatedPrice()));
+                }
+            }
+        });
+    }
+
+    /* This method is used to generate the add on display items
+    *  at the top of the border pane
+    */
+    private void initAddOnItemsDisplay() {
+        addOnDisplayListView.setOrientation(Orientation.HORIZONTAL);
+        for(Item item : itemAddOnList) {
+            itemAddOnDisplayObservableList.add(item.item_display);
+        }
+    }
+
+    /*  This method is used to check if an item is selected or not
+     *  Returns Item if it exist
+     */
+    private Item getAddOnItemSelected() {
+        // gets the particular HBox container of the selected item
+        HBox box = (HBox) addOnDisplayListView.getSelectionModel().getSelectedItem();
+        // if an item is really selected, check if it is registered in the itemHashMap
+        for(Item key : itemAddOnList) {
+            // if the item_display of 'key' is the same as the selected item display 'box'
+            // returns isSelected as true, meaning an item is selected
+            if (key.item_display.equals(box)) {
+                return key;
+            }
+        }
+        return null;
+    }
+
+    /* This method is used to inject cashier controller here */
     static void injectCashierController(CashierController cc) {
         cashierController = cc;
     }
 
-    // This method is used to catch information from CashierScreen
+    /* This method is used to catch information from CashierScreen */
     void catchInformation(Item selectedItem, HashMap<Item,String> ihm,
-                  HashMap<Order, Integer> ohm, ObservableList<Order> orderList) {
+                  HashMap<Order, Integer> ohm, ObservableList<Order> orderList,
+                  ArrayList<Item> itemAddOnList, boolean newOrder) {
         this.selectedItem = selectedItem;
         this.orderList = FXCollections.observableArrayList(orderList);
         this.itemHashMap = new HashMap<>(ihm);
         this.orderHashMap = new HashMap<>(ohm);
         this.itemHashSet = new HashSet<>(ihm.values());
+        this.itemAddOnList = new ArrayList<>(itemAddOnList);
         itemImage.setImage(selectedItem.item_image.getImage());
         orderPriceLabel.setText(Double.toString(selectedItem.item_price));
         orderNameLabel.setText(selectedItem.item_name);
         price = selectedItem.item_price;
-    }
+        this.newOrder = newOrder;
 
+        initAddOnItemsDisplay();
+    }
 }

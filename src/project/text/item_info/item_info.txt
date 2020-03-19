@@ -1,3 +1,4 @@
 Sabu,single,69.0,src/project/image/default.png
 Ding,add on,60.0,src/project/image/default.png
 Isaiah,Malandi pero pogi,69.0,src/project/image/default.png
+Soju "A" flavored,add on,100.0,src/project/image/default.png

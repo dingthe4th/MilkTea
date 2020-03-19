@@ -59,6 +59,7 @@ public class CashierController implements Initializable {
     private HashMap<Item,String> itemHashMap;
     private Set<String> itemHashSet;
     private Item selectedItem;
+    private boolean newOrder = true;
 
     /*
     * @param
@@ -106,11 +107,15 @@ public class CashierController implements Initializable {
         CashierPane.setOpacity(.25);
         FXMLLoader loader = new FXMLLoader(getClass().getResource("../fxml/OrderScreen.fxml"));
         Parent root = loader.load();
+
         OrderController orderController = loader.getController();
         OrderController.injectCashierController(this);
-        orderController.catchInformation(selectedItem,itemHashMap,orderHashMap,orderObservableList);
+
+        orderController.catchInformation(selectedItem,itemHashMap,orderHashMap,orderObservableList,itemAddOnList,newOrder);
+
         Scene scene = new Scene(root);
         Stage stage = new Stage();
+
         stage.initStyle(StageStyle.UNDECORATED);
         stage.initModality(Modality.APPLICATION_MODAL);
         stage.setScene(scene);
@@ -135,10 +140,11 @@ public class CashierController implements Initializable {
     }
 
     // This method is used to catch information from OrderScreen
-    void catchOrderDetails(ObservableList<Order> orderList, HashMap<Order, Integer> ohm) {
+    void catchOrderDetails(ObservableList<Order> orderList, HashMap<Order, Integer> ohm, boolean newOrder) {
         orderHashMap = new HashMap<>(ohm);
         orderObservableList = FXCollections.observableArrayList(orderList);
         orderTableView.setItems(orderObservableList);
+        this.newOrder = newOrder;
     }
 
     // This method is used to catch information from HomeScreen
@@ -152,6 +158,11 @@ public class CashierController implements Initializable {
 
         // generate tabs
         generateTabs();
+
+        // Adds all add on items to itemAddOnList
+        for(Item item : itemHashMap.keySet()) {
+            if(item.item_type.equalsIgnoreCase("add on")) itemAddOnList.add(item);
+        }
     }
 
     // This method is used to generate tabs to tab pane
@@ -234,6 +245,5 @@ public class CashierController implements Initializable {
             tabPane.getTabs().add(tab);
         }
     }
-
 
 }
