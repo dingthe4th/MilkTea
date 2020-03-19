@@ -5,11 +5,15 @@
   Isaiah Tupal
 
 CURRENT TODOS:
-  1. Make the add-on toggle button in OrderScreen work.
-    The idea is when you press the toggle -> ON, a listView (horizontal) of the add on items should be displayed
-    at the top of the borderPane. Please also think of a way of how to increment the qty of this add on per order.
+  1. Make the overall cashier p.o.s. logic function work as intended.
+      Work on the variables needed in the statistics portion such as total sales per day, number of orders,
+      hash map of all items that are bought, etc.
       
   2. Make the statistics screen mode work.
+  
+  3. MAKE IT LOOK DOPE!
+  
+  Kindest regards.
 
 # MilkTea
 A point of sale system for the business Taste from the Greens. A project for the completion of the requirements in the course software design and engineering (SOFDDESG).
