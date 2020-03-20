@@ -64,7 +64,10 @@
                   <Insets bottom="15.0" />
                </VBox.margin>
             </JFXButton>
-            <Label fx:id="statusMsg" text="Welcome!" />
+            <Label fx:id="statusMsg" text="Welcome!" textFill="WHITE">
+               <font>
+                  <Font name="HelveticaLTStd-Bold" size="21.0" />
+               </font></Label>
          </children>
       </VBox>
    </children>

@@ -35,7 +35,7 @@ public class LoginController {
     public GridPane loginPane;
     public TextField usernameField;
     public PasswordField passwordField;
-    //public Label statusMsg;
+    public Label statusMsg;
 
     // helper function for adminLogin(AE e) //
     private boolean tryLogin(String id, String pw) {
@@ -57,14 +57,14 @@ public class LoginController {
         String pw = passwordField.getText();
 
         // login successfully!
-        /*if(tryLogin(id,pw)) {
+        if(tryLogin(id,pw)) {
             statusMsg.setText("Login successful!");
             goToHomeScreen();
         }
         // login error
         else {
             statusMsg.setText("Incorrect username or password.");
-        }*/
+        }
     }
 
     // if login is successful, goes to the next screen (H0ME SCREEN)
