@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+
+<GridPane fx:id="HomeScreenPane" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="1366.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="project.controllers.HomeScreenController">
+  <columnConstraints>
+    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+  </columnConstraints>
+  <rowConstraints>
+    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+  </rowConstraints>
+   <children>
+      <ImageView fitHeight="340.0" fitWidth="371.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
+         <image>
+            <Image url="@../image/logoMilk.jpg" />
+         </image>
+      </ImageView>
+      <JFXButton onAction="#window_cashier" prefHeight="86.0" prefWidth="215.0" text="Click here to cashier mode" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+      <JFXButton onAction="#window_edit_mode" prefHeight="86.0" prefWidth="215.0" text="Add/Edit/Remove Items" GridPane.columnIndex="2" GridPane.rowIndex="3" />
+      <JFXButton prefHeight="86.0" prefWidth="215.0" text="View Stats" GridPane.columnIndex="3" GridPane.rowIndex="3" />
+      <JFXButton prefHeight="86.0" prefWidth="215.0" text="Function 4" GridPane.columnIndex="4" GridPane.rowIndex="3" />
+      <JFXButton onAction="#window_exit" prefHeight="86.0" prefWidth="215.0" text="Exit Program" GridPane.columnIndex="5" GridPane.rowIndex="3" />
+   </children>
+</GridPane>
