@@ -70,7 +70,8 @@ public class LoginController {
     // if login is successful, goes to the next screen (H0ME SCREEN)
     public void goToHomeScreen() throws IOException {
         // loads new fxml file
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("../fxml/HomeScreen.fxml"));
+        //FXMLLoader loader = new FXMLLoader(getClass().getResource("../fxml/HomeScreen.fxml"));
+        FXMLLoader loader = new FXMLLoader((getClass().getResource("../fxml/FirstPage.fxml")));
         Parent root = loader.load();
 
         // pass login controller to home screen controller
