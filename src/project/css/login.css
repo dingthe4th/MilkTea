@@ -1,0 +1,41 @@
+/*
+This is the CSS for the login page
+*/
+GridPane {
+    -fx-background-color : linear-gradient(#63D471, #21D190);
+     -fx-font-family: Futura-Bold, Arial, serif;
+}
+
+.text-field{
+      -fx-border-style: solid;
+      -fx-border-width: 2px;
+      -fx-border-radius: 30;
+      -fx-background-radius: 30;
+      -fx-border-color: white;
+}
+
+.text-field:focused{
+      -fx-border-color: #518233;
+}
+
+.button {
+    -fx-background-color: #1f8201; /* Green */
+    -fx-border-color:  #1f8201;
+    -fx-border-style: solid;
+    -fx-border-width: 2px;
+    -fx-border-radius: 30;
+    -fx-text-fill: white;
+    -fx-background-radius: 30;
+}
+.button:hover {
+    -fx-background-color: #d1ffb5;
+    -fx-border-color: #d1ffb5;
+    -fx-border-style: solid;
+    -fx-border-width: 2px;
+    -fx-text-fill: #518233;
+    -fx-border-radius: 30;
+}
+
+#statusMsg{
+    -fx-text-fill: white;
+}

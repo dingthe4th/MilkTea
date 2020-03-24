@@ -10,6 +10,10 @@ CURRENT TODOS:
     at the top of the borderPane. Please also think of a way of how to increment the qty of this add on per order.
       
   2. Make the statistics screen mode work.
+  
+ISAIAH TODOS
+    1. Do menuItem 
+    2. Create orderItem generator function
 
 # MilkTea
 A point of sale system for the business Taste from the Greens. A project for the completion of the requirements in the course software design and engineering (SOFDDESG).
