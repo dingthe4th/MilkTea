@@ -12,9 +12,10 @@ CURRENT TODOS:
   2. Make the statistics screen mode work.
   
 ISAIAH TODOS
-    1. Do menuItem 
-    2. Create orderItem generator function
-
+    1. Create orderwindow
+     1.a style order window
+     1.b create function to launch order window
+     
 # MilkTea
 A point of sale system for the business Taste from the Greens. A project for the completion of the requirements in the course software design and engineering (SOFDDESG).
 

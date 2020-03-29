@@ -10,8 +10,7 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception{
         Initialize.loadFonts(this);
-        Initialize.openMainScreen(primaryStage,this);
-
+        Initialize.openAddToCartWindow(primaryStage,this);
 
         /*
        Parent root = FXMLLoader.load(getClass().getResource("\\project\\fxml\\LoginScreen.fxml"));

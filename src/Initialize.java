@@ -38,4 +38,12 @@ public class Initialize {
 
     }
 
+    static void openAddToCartWindow(Stage primaryStage, Main main) throws  Exception{
+        Parent root = FXMLLoader.load(main.getClass().getResource("\\project\\fxml\\AddToCartWindow.fxml"));
+        primaryStage.setTitle("Add to cart");
+        primaryStage.setScene(new Scene(root));
+        primaryStage.setResizable(false);
+        primaryStage.show();
+    }
+
 }

@@ -1,0 +1,25 @@
+.h-box{
+    -fx-background-color:#404040;
+}
+
+.toggle-button{
+    -fx-pref-width:40;
+    -fx-pref-height:40;
+    -fx-background-color: white;
+    -fx-border-color: black;
+    -fx-wrap-text: true;
+    -fx-font-family:Futura-Bold, Arial, serif;
+    -fx-font-size:10;
+
+}
+
+#DrinkName{
+    -fx-pref-width:100;
+}
+
+.drink-settings-label{
+    -fx-background-color: #2E8B57;
+    -fx-pref-height:30;
+    -fx-pref-width:250;
+    -fx-alignment:center;
+}

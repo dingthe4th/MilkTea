@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.image.Image?>
+<?import java.net.URL?>
+<AnchorPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="project.controllers.AddToCartWindowController"
+            prefHeight="400.0" prefWidth="600.0"
+            >
+
+    <VBox id = "MainPane"><!--Separates the drink image, size, sugar, ice level, discount from addons-->
+        <HBox><!--top half of the window-->
+            <VBox>
+                <ImageView fx:id = "DrinkImage" fitHeight="100" fitWidth="100" preserveRatio="true">
+                    <Image url="@../../../src/project/image/default.png" />
+                </ImageView>
+                <Label fx:id="DrinkName" text = "COOKIES AND CREAMPUFF"></Label>
+            </VBox>
+            <GridPane>
+                <VBox GridPane.columnIndex="0" GridPane.rowIndex="0"> <!-- Contains the settings for size-->
+                    <Label styleClass="drink-settings-label" text="Size"></Label>
+                    <HBox alignment="CENTER">
+                        <fx:define>
+                            <ToggleGroup fx:id="SizeGroup" />
+                        </fx:define>
+                        <ToggleButton HBox.hgrow="ALWAYS" text = "M" toggleGroup="$SizeGroup"> </ToggleButton>
+                        <ToggleButton HBox.hgrow="ALWAYS" text = "L" toggleGroup="$SizeGroup"></ToggleButton>
+                    </HBox>
+                </VBox>
+                <VBox GridPane.columnIndex="1" GridPane.rowIndex="0"> <!-- Contains the settings for sugar level -->
+                    <Label styleClass="drink-settings-label" text="Sugar Level"></Label>
+                    <HBox alignment="CENTER" >
+                        <fx:define>
+                            <ToggleGroup fx:id="SweetnessGroup" />
+                        </fx:define>
+                        <ToggleButton HBox.hgrow="ALWAYS" toggleGroup="$SweetnessGroup" text = "0"></ToggleButton>
+                        <ToggleButton HBox.hgrow="ALWAYS" toggleGroup="$SweetnessGroup" text = "25"></ToggleButton>
+                        <ToggleButton HBox.hgrow="ALWAYS" toggleGroup="$SweetnessGroup" text = "50"></ToggleButton>
+                        <ToggleButton HBox.hgrow="ALWAYS" toggleGroup="$SweetnessGroup" text = "75"></ToggleButton>
+                        <ToggleButton HBox.hgrow="ALWAYS" toggleGroup="$SweetnessGroup" text = "100"></ToggleButton>
+                    </HBox>
+                </VBox>
+                <VBox GridPane.columnIndex="0" GridPane.rowIndex="1">
+                    <Label styleClass="drink-settings-label" text="Ice Level"></Label>
+                    <HBox alignment="CENTER">
+                        <fx:define>
+                            <ToggleGroup fx:id="IceLevelGroup" />
+                        </fx:define>
+                        <ToggleButton HBox.hgrow="ALWAYS" toggleGroup="$IceLevelGroup" text = "Zero"></ToggleButton>
+                        <ToggleButton HBox.hgrow="ALWAYS" toggleGroup="$IceLevelGroup" text = "Less"></ToggleButton>
+                        <ToggleButton HBox.hgrow="ALWAYS" toggleGroup="$IceLevelGroup" text = "Regular"></ToggleButton>
+                    </HBox>
+                </VBox>
+                <VBox alignment="CENTER" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                    <Label styleClass="drink-settings-label" text = "Discount"></Label>
+                    <ToggleButton  text = "Senior Citizen"></ToggleButton>
+                </VBox>
+            </GridPane>
+        </HBox>
+        <Label text = "Add ons"></Label>
+        <HBox>
+            <Button text = "Pearl"></Button>
+            <Button text = "Salted Cream Cheese"></Button>
+            <Button text = "Coffee Jelly"></Button>
+            <Button text = "Nada De Coco"></Button>
+            <Button text = "Pudding"></Button>
+            <Button text = "Grass Jelly"></Button>
+            <Button text = "Cookie"></Button>
+            <Button text = "Yakult"></Button>
+        </HBox>
+
+    </VBox>
+    <stylesheets>
+        <URL value="@../../../src/project/css/AddToCartWindow.css" />
+    </stylesheets>
+</AnchorPane>
