@@ -5,7 +5,9 @@ import com.jfoenix.controls.JFXTabPane;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.geometry.Orientation;
 import javafx.scene.Node;
 import javafx.scene.Parent;
@@ -13,6 +15,8 @@ import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.Tab;
+import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.TilePane;
@@ -24,9 +28,10 @@ import javafx.stage.StageStyle;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.net.URL;
 import java.util.*;
 
-public class EditModeController {
+public class EditModeController implements Initializable {
     /*
     * EditModePane - main pane of this window
     * tabPane - contains all the items
@@ -40,6 +45,7 @@ public class EditModeController {
     public BorderPane EditModePane;
     public JFXTabPane tabPane;
     public Label screenStatus;
+    public ImageView goToHomeImageButton;
     private HashMap<Item,String> itemHashMap;
     private Set<String> itemHashSet;
     private Item selectedItem;
@@ -276,5 +282,25 @@ public class EditModeController {
 
         // generate updated tab panes
         generateTabs();
+    }
+
+    // Mouse listeners to goToHomeImageButton
+    private void setGoToHomeImageButton() {
+        goToHomeImageButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                try {
+                    goToHomeScreen();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+    }
+
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        // Add mouse listener to goToHomeImageButton
+        setGoToHomeImageButton();
     }
 }

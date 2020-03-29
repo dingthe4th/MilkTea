@@ -11,18 +11,22 @@ import javafx.fxml.Initializable;
 import javafx.geometry.Orientation;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Label;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.TilePane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.net.URL;
 import java.util.*;
@@ -37,7 +41,9 @@ public class CashierController implements Initializable {
 
     public BorderPane CashierPane;
     public JFXTabPane tabPane;
-
+    public Label orderNumberLabel, totalItemsSoldLabel, totalSalesLabel;
+    public Label orderQuantityLabel, orderSubtotalLabel;
+    public ImageView goToHomeImageButton;
     /*
      * @param
      *  orderHashMap
@@ -54,12 +60,15 @@ public class CashierController implements Initializable {
      *  selectedItem
      *      the item that is selected / highlighted
      * */
-    private HashMap<Order,Integer> orderHashMap = new HashMap<>();
     private ArrayList<Item> itemAddOnList = new ArrayList<>();
+    private HashMap<Integer, Integer> cupsOrderedHashMap = new HashMap<>();
+    private HashMap<Item,Integer> main_ItemOrderedHashMap = new HashMap<>();
+    private HashMap<Item,Integer> current_itemOrderedHashMap = new HashMap<>();
     private HashMap<Item,String> itemHashMap;
     private Set<String> itemHashSet;
     private Item selectedItem;
     private boolean newOrder = true;
+    private double totalSalesAmount = 0;
 
     /*
     * @param
@@ -81,6 +90,23 @@ public class CashierController implements Initializable {
         orderTableView.setItems(orderObservableList);
         orderDetailsColumn.setCellValueFactory(new PropertyValueFactory<>("orderDetails"));
         orderPriceColumn.setCellValueFactory(new PropertyValueFactory<>("orderPrice"));
+
+        // Add mouse listener to goToHomeImageButton
+        setGoToHomeImageButton();
+
+    }
+
+    private void setGoToHomeImageButton() {
+        goToHomeImageButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                try {
+                    goToHomeScreen();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
     }
 
     //  This method is used to check if an item is selected or not
@@ -111,7 +137,8 @@ public class CashierController implements Initializable {
         OrderController orderController = loader.getController();
         OrderController.injectCashierController(this);
 
-        orderController.catchInformation(selectedItem,itemHashMap,orderHashMap,orderObservableList,itemAddOnList,newOrder);
+        if(newOrder) current_itemOrderedHashMap = new HashMap<>();
+        orderController.catchInformation(selectedItem,itemHashMap,cupsOrderedHashMap,current_itemOrderedHashMap,orderObservableList,itemAddOnList,newOrder);
 
         Scene scene = new Scene(root);
         Stage stage = new Stage();
@@ -131,6 +158,8 @@ public class CashierController implements Initializable {
         // loads new fxml file
         FXMLLoader loader = new FXMLLoader(getClass().getResource("../fxml/HomeScreen.fxml"));
         Parent root = loader.load();
+        HomeScreenController hsc = loader.getController();
+        hsc.catchStatisticsInformation(cupsOrderedHashMap,main_ItemOrderedHashMap,totalSalesAmount);
 
         // fxmlloader -> parent -> controller -> scene -> stage
         Scene scene = new Scene(root);
@@ -139,22 +168,102 @@ public class CashierController implements Initializable {
         stage.show();
     }
 
+    // This method is called if a new order is being made
+    public void proceedToNextOrder() {
+        if(orderObservableList.isEmpty()) return;
+
+        // Updates the main item ordered HashMap (used in statistics)
+        updateMainItemOrderedHashMap();
+
+        // Updates the label of order number
+        int orderNumber = Integer.parseInt(orderNumberLabel.getText());
+        orderNumberLabel.setText(Integer.toString(orderNumber+1));
+
+        // Updates the statistics variables
+        calculationAfterEveryOrder();
+
+        // Clear the table view
+        orderObservableList.clear();
+
+        // Resets the labels to 0
+        orderSubtotalLabel.setText("0.00");
+        orderQuantityLabel.setText("0");
+
+        newOrder = true;
+    }
+
+    // This method is used to void an order
+    public void voidSelectedItemOrder() {
+        // Removes selected item to the current order list
+        Order selectedOrder = orderTableView.getSelectionModel().getSelectedItem();
+        if(selectedOrder != null) {
+            orderObservableList.remove(selectedOrder);
+
+
+            // Updates the current_itemOrderedHashMap
+            ArrayList<Item> itemsFromDeletedOrder = new ArrayList<>(Order.getAllItemsFromOrder(selectedOrder));
+
+            for(Item item : itemsFromDeletedOrder) {
+                if(current_itemOrderedHashMap.containsKey(item))
+                    current_itemOrderedHashMap.replace(item,current_itemOrderedHashMap.get(item)-1);
+            }
+        }
+
+        calculateCurrentOrderTotalPrice();
+    }
+
+    // This method is used to calculate the total amount of the current order
+    private void calculateCurrentOrderTotalPrice() {
+        double sum = 0;
+        int qty = 0;
+        sum = Order.getTotalOrderPrice(orderObservableList);
+        qty = Order.getTotalOrderQuantity(current_itemOrderedHashMap);
+
+        orderQuantityLabel.setText(Integer.toString(qty));
+        orderSubtotalLabel.setText(Double.toString(sum));
+    }
+
+    // This method is a helper function to proceedToNextOrder function
+    // It calculates the total sales amount and number of items sold
+    private void calculationAfterEveryOrder() {
+
+        // Counts the total items sold (appends/updates every order completion)
+        int totalItemsSold = Order.getTotalOrderQuantity(main_ItemOrderedHashMap);
+        // Calculates the total sales for the day (appends/updates every order completion)
+        totalSalesAmount += Order.getTotalOrderPrice(orderObservableList);
+
+        // Updates the label every order completion
+        totalItemsSoldLabel.setText(Integer.toString(totalItemsSold));
+        totalSalesLabel.setText(Double.toString(totalSalesAmount));
+
+    }
+
+    private void updateMainItemOrderedHashMap() {
+        for(Item item : current_itemOrderedHashMap.keySet()) {
+            if(main_ItemOrderedHashMap.containsKey(item)) {
+                int updatedQty = main_ItemOrderedHashMap.get(item) + current_itemOrderedHashMap.get(item);
+                main_ItemOrderedHashMap.replace(item,updatedQty);
+            } else {
+                main_ItemOrderedHashMap.put(item,current_itemOrderedHashMap.get(item));
+            }
+        }
+    }
+
     // This method is used to catch information from OrderScreen
-    void catchOrderDetails(ObservableList<Order> orderList, HashMap<Order, Integer> ohm, boolean newOrder) {
-        orderHashMap = new HashMap<>(ohm);
+    void catchOrderDetails(ObservableList<Order> orderList, HashMap<Item,Integer> iohm, HashMap<Integer, Integer> cups, boolean newOrder) {
+        cupsOrderedHashMap = new HashMap<>(cups);
+        current_itemOrderedHashMap = new HashMap<>(iohm);
         orderObservableList = FXCollections.observableArrayList(orderList);
         orderTableView.setItems(orderObservableList);
         this.newOrder = newOrder;
+
+        calculateCurrentOrderTotalPrice();
     }
 
     // This method is used to catch information from HomeScreen
     void catchInformation(HashMap<Item, String> hm) {
         this.itemHashMap = new HashMap<>(hm);
         this.itemHashSet = new HashSet<>(hm.values());
-
-        // checker
-        System.out.println(itemHashMap.size());            // Expected : 5
-        System.out.println(itemHashSet.size());            // Expected : 4
 
         // generate tabs
         generateTabs();
@@ -208,6 +317,8 @@ public class CashierController implements Initializable {
             * For each loop in while loop, a tab will be generated (with the name of
             * the item_type stored in the HashSet)
              */
+
+
             String currentIterator = (String) iterator.next();
 
             /* prevent from creating a add-on tab */

@@ -8,7 +8,9 @@ import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 import java.io.*;
 import java.net.URL;
@@ -27,6 +29,9 @@ public class HomeScreenController implements Initializable {
     private static final File default_file_path = new File("src/project/text/item_info/item_info.txt");
     public GridPane HomeScreenPane;
     public HashMap<Item,String> itemHashMap = new HashMap<>();
+    private HashMap<Integer, Integer> cupsOrderedHashMap = new HashMap<>();
+    private HashMap<Item,Integer> main_ItemOrderedHashMap = new HashMap<>();
+    private double totalSalesAmount;
 
 
     /*
@@ -52,8 +57,19 @@ public class HomeScreenController implements Initializable {
      * Controller : _________
      * Displays the statistics of the sale of the store
      * */
-    public void window_statistics(ActionEvent e) {
-        // TODO
+    public void window_statistics(ActionEvent e) throws IOException {
+        HomeScreenPane.setOpacity(.25);
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("../fxml/StatisticsScreen.fxml"));
+        Parent root = loader.load();
+        StatisticsController statisticsController = loader.getController();
+        statisticsController.catchInformation(cupsOrderedHashMap,main_ItemOrderedHashMap,totalSalesAmount);
+        Scene scene = new Scene(root);
+        Stage stage = new Stage();
+        stage.initStyle(StageStyle.UNDECORATED);
+        stage.initModality(Modality.APPLICATION_MODAL);
+        stage.setScene(scene);
+        stage.showAndWait();
+        HomeScreenPane.setOpacity(1.0);
     }
 
     /*
@@ -72,16 +88,6 @@ public class HomeScreenController implements Initializable {
         Stage stage = (Stage) this.HomeScreenPane.getScene().getWindow();
         stage.setScene(scene);
         stage.show();
-    }
-
-    /*TODO
-     * FXML : _____
-     * Controller : _________
-     * Extra functions, can be deleted if no functions
-     * will be added to the system
-     * */
-    public void window_function4(ActionEvent e) {
-        // TODO
     }
 
     /* Handles program termination */
@@ -114,14 +120,18 @@ public class HomeScreenController implements Initializable {
         }
     }
 
+    /* Catch information from CashierScreen */
+    public void catchStatisticsInformation(HashMap<Integer,Integer> cups, HashMap<Item,Integer> itemOrders, double totalSalesAmount) {
+        main_ItemOrderedHashMap = new HashMap<>(itemOrders);
+        cupsOrderedHashMap = new HashMap<>(cups);
+        this.totalSalesAmount = totalSalesAmount;
+    }
+
     /* calls loadAllItems() */
     @Override public void initialize(URL location, ResourceBundle resources) {
         try {
             loadAllItems();
 
-            // checker
-            // System.out.println("Size of hash map: " + itemHashMap.size());
-            // System.out.println("Set of values: " + itemHashMap.values());
         } catch (IOException e) {
             e.printStackTrace();
         }

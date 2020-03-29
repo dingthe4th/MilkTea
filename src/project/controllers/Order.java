@@ -2,6 +2,8 @@ package project.controllers;
 
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleStringProperty;
+import javafx.collections.ObservableList;
+import javafx.collections.ObservableSet;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -65,6 +67,35 @@ public class Order {
 
         orderDetails = new SimpleStringProperty(orderFullDetails(this));
         orderPrice = new SimpleDoubleProperty(calculateOrder(this));
+    }
+
+    static ArrayList<Item> getAllItemsFromOrder(Order order) {
+        ArrayList<Item> items = new ArrayList<>();
+        items.add(order.getItem());
+
+        items.addAll(order.addOn.keySet());
+
+        return items;
+    }
+    static double getTotalOrderPrice(ObservableList<Order> orderObservableList) {
+        double sum = 0;
+
+        for(Order order : orderObservableList) {
+            sum += order.getOrderPrice();
+        }
+
+        return sum;
+    }
+
+    static int getTotalOrderQuantity(HashMap<Item,Integer> itemOrderedHashMap) {
+        int totalItemsSold = 0;
+
+
+        for(Item item : itemOrderedHashMap.keySet()) {
+            totalItemsSold += itemOrderedHashMap.get(item);
+        }
+
+        return totalItemsSold;
     }
 
     static double calculateOrder(Order item) {
@@ -226,6 +257,7 @@ public class Order {
     public Item getItem() {
         return this.order;
     }
+    public int getSize() { return this.size; }
 
     /*
     * Setter and Getters

@@ -82,7 +82,6 @@ public class DeleteItemController {
      Go to this link and study them:
      https://www.java-forums.org/javafx/97288-how-return-value-modal-window-back-parent.html
   */
-
     static void injectEditModeController(EditModeController emc) {
         editModeController = emc;
     }

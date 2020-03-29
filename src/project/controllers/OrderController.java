@@ -38,24 +38,39 @@ public class OrderController implements Initializable {
     public ToggleGroup iceSize;
     public ToggleGroup sugarLevel;
 
+    /*
+    * orderPriceLabel -> Updates when you choose other options
+    * orderNameLabel -> Gets text from the selectedItem name
+    * itemImage -> Gets image from the selectedItem image
+    */
     public Label orderPriceLabel;
     public Label orderNameLabel;
-
     public ImageView itemImage;
 
 
+    /*
+    * addOnListView -> displays the add on items added to the cart
+    * addOnHashMap -> stores the add on orders, updated while addOn button is toggled
+    * itemAddOnObservableList_String -> items of addOnListView
+    * */
     public JFXListView addOnListView;
     private HashMap<Item,Integer> addOnHashMap;
     private ObservableList<String> itemAddOnObservableList_String;
 
+    /*
+    * addOnDisplayListView -> displays the add on items available in the shop
+    *
+    *
+    * */
     public JFXListView addOnDisplayListView;
     private ObservableList<HBox> itemAddOnDisplayObservableList;
 
     private ArrayList<Item> itemAddOnList;
     private ObservableList<Order> orderList;
-    private HashMap<Order,Integer> orderHashMap;
     private HashMap<Item,String> itemHashMap;
     private Set<String> itemHashSet;
+    private HashMap<Integer,Integer> cupsOrderedHashMap = new HashMap<>();
+    private HashMap<Item,Integer> itemOrderedHashMap = new HashMap<>();
     private Item selectedItem;
     private boolean newOrder;
 
@@ -173,26 +188,63 @@ public class OrderController implements Initializable {
 
         Order order = new Order(selectedItem,cup,sugar,ice,isAddOn,addOnHashMap,isDiscount);
 
-        // check if order already existed
-        boolean found = false;
-        for(Order ord : orderHashMap.keySet()) {
-            if(ord.getItem().equals(selectedItem)) {
-                found = true;
-                break;
-            }
-        }
-        if(found) {
-            orderList.add(order);
-            orderHashMap.replace(order,orderHashMap.get(order));
-        }
-        else {
-            orderList.add(order);
-            orderHashMap.put(order,1);
+        // Add order to the list (displayed in table view in Cashier Screen)
+        orderList.add(order);
+
+        // Updates the cup counter hash map
+        updateCupsOrderedHashMap(order);
+
+        // Add item ordered in the item ordered hash map (used in statistics)
+        updateItemOrderedHashMap(selectedItem);
+
+        // For each add on ordered append all to item ordered hash map (used in statistics)
+        for(Item item : addOnHashMap.keySet()) {
+            for(int i = 0 ; i < addOnHashMap.get(item); i++)
+                updateItemOrderedHashMap(item);
         }
 
-        cashierController.catchOrderDetails(orderList,orderHashMap,newOrder);
+        cashierController.catchOrderDetails(orderList,itemOrderedHashMap,cupsOrderedHashMap, false);
         Stage stage = (Stage) confirmButton.getScene().getWindow();
         stage.close();
+    }
+
+    // This method is used to update cupsOrderedHashMap (used for statistics)
+    private void updateCupsOrderedHashMap(Order order) {
+        switch(order.getSize()) {
+            case 1: // SMALL
+                if(cupsOrderedHashMap.containsKey(1)) {
+                    cupsOrderedHashMap.replace(1,cupsOrderedHashMap.get(1)+1);
+                } else {
+                    cupsOrderedHashMap.put(1,1);
+                }
+                break;
+            case 2: // MEDIUM
+                if(cupsOrderedHashMap.containsKey(2)) {
+                    cupsOrderedHashMap.replace(2,cupsOrderedHashMap.get(2)+1);
+                } else {
+                    cupsOrderedHashMap.put(2,1);
+                }
+                break;
+            case 3: // LARGE
+                if(cupsOrderedHashMap.containsKey(3)) {
+                    cupsOrderedHashMap.replace(3,cupsOrderedHashMap.get(3)+1);
+                } else {
+                    cupsOrderedHashMap.put(3,1);
+                }
+                break;
+        }
+    }
+
+    // This method is used to add an item to the item ordered hash map (used in statistics)
+    private void updateItemOrderedHashMap(Item itemOrdered) {
+        if(itemHashMap.containsKey(itemOrdered)) {
+            if(itemOrderedHashMap.containsKey(itemOrdered)) {
+                itemOrderedHashMap.replace(itemOrdered,itemOrderedHashMap.get(itemOrdered)+1);
+            }
+            else {
+                itemOrderedHashMap.put(itemOrdered,1);
+            }
+        }
     }
 
     /* This method handles the changes to the display of the
@@ -359,7 +411,7 @@ public class OrderController implements Initializable {
                     // Update item details to the Add On Hashmap
                     if(addOnHashMap.keySet().contains(currentItem)) {
                         int qty = addOnHashMap.get(currentItem);
-                        addOnHashMap.replace(currentItem,qty-1);
+                        if(qty != 0) addOnHashMap.replace(currentItem,qty-1);
                     }
 
                     itemAddOnObservableList_String.remove(getAddOnItemSelected().item_name);
@@ -370,8 +422,7 @@ public class OrderController implements Initializable {
     }
 
     /* This method is used to generate the add on display items
-    *  at the top of the border pane
-    */
+    *  at the top of the border pane */
     private void initAddOnItemsDisplay() {
         addOnDisplayListView.setOrientation(Orientation.HORIZONTAL);
         for(Item item : itemAddOnList) {
@@ -403,12 +454,13 @@ public class OrderController implements Initializable {
 
     /* This method is used to catch information from CashierScreen */
     void catchInformation(Item selectedItem, HashMap<Item,String> ihm,
-                  HashMap<Order, Integer> ohm, ObservableList<Order> orderList,
+                  HashMap<Integer, Integer> ohm, HashMap<Item, Integer> iohm, ObservableList<Order> orderList,
                   ArrayList<Item> itemAddOnList, boolean newOrder) {
         this.selectedItem = selectedItem;
         this.orderList = FXCollections.observableArrayList(orderList);
         this.itemHashMap = new HashMap<>(ihm);
-        this.orderHashMap = new HashMap<>(ohm);
+        this.cupsOrderedHashMap = new HashMap<>(ohm);
+        this.itemOrderedHashMap = new HashMap<>(iohm);
         this.itemHashSet = new HashSet<>(ihm.values());
         this.itemAddOnList = new ArrayList<>(itemAddOnList);
         itemImage.setImage(selectedItem.item_image.getImage());

@@ -32,8 +32,7 @@
       </ImageView>
       <JFXButton onAction="#window_cashier" prefHeight="86.0" prefWidth="215.0" text="Click here to cashier mode" GridPane.columnIndex="1" GridPane.rowIndex="3" />
       <JFXButton onAction="#window_edit_mode" prefHeight="86.0" prefWidth="215.0" text="Add/Edit/Remove Items" GridPane.columnIndex="2" GridPane.rowIndex="3" />
-      <JFXButton prefHeight="86.0" prefWidth="215.0" text="View Stats" GridPane.columnIndex="3" GridPane.rowIndex="3" />
-      <JFXButton prefHeight="86.0" prefWidth="215.0" text="Function 4" GridPane.columnIndex="4" GridPane.rowIndex="3" />
-      <JFXButton onAction="#window_exit" prefHeight="86.0" prefWidth="215.0" text="Exit Program" GridPane.columnIndex="5" GridPane.rowIndex="3" />
+      <JFXButton onAction="#window_statistics" prefHeight="86.0" prefWidth="215.0" text="View Stats" GridPane.columnIndex="3" GridPane.rowIndex="3" />
+      <JFXButton onAction="#window_exit" prefHeight="86.0" prefWidth="215.0" text="Exit Program" GridPane.columnIndex="4" GridPane.rowIndex="3" />
    </children>
 </GridPane>
