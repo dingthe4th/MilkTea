@@ -1,5 +1,7 @@
 package project.controllers;
 
+// This class is used in statistics
+
 public class ItemSold {
     public static class PerType {
         String type;

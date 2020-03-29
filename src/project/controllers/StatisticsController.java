@@ -81,7 +81,6 @@ public class StatisticsController implements Initializable {
                 teaNameObservableList.add(itemSold);
             }
         }
-        System.out.println("TEANAMESIZE : " + teaNameObservableList.size());
     }
 
     // This method is used to populate teaTypeTableView
@@ -99,7 +98,6 @@ public class StatisticsController implements Initializable {
             ItemSold.PerType itemSoldPerType = new ItemSold.PerType(itemType,temp.get(itemType));
             teaTypeObservableList.add(itemSoldPerType);
         }
-        System.out.println("TEATYPESIZE : " + teaTypeObservableList.size());
     }
 
     // This method is used to display the overall sale statistics
