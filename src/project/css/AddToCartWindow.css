@@ -1,25 +1,62 @@
-.h-box{
+#MainPane{
     -fx-background-color:#404040;
 }
 
-.toggle-button{
-    -fx-pref-width:40;
-    -fx-pref-height:40;
-    -fx-background-color: white;
-    -fx-border-color: black;
-    -fx-wrap-text: true;
-    -fx-font-family:Futura-Bold, Arial, serif;
-    -fx-font-size:10;
 
-}
 
 #DrinkName{
-    -fx-pref-width:100;
+    -fx-font-family: Lato, Arial, serif;
+    -fx-font-size:14;
+    -fx-pref-height:70;
+    -fx-pref-width: 200;
+    -fx-alignment:center;
+    -fx-text-fill: #5bd457;
+    -fx-wrap-text:true;
+    -fx-text-alignment:center;
 }
 
+.toggle-button{
+    -fx-pref-height:60;
+    -fx-background-color:#404040;
+    -fx-text-fill:white;
+    -fx-wrap-text: true;
+    -fx-font-family: Helvetica, Arial, serif;
+    -fx-font-size:14;
+}
+
+.toggle-button:selected{
+    -fx-text-fill:  #5bd457;
+    -fx-border-color:#5bd457;
+  -fx-border-style: solid none solid none;
+    -fx-border-width: 2;
+
+}
+
+
+
+
 .drink-settings-label{
-    -fx-background-color: #2E8B57;
+    -fx-font-family: Lato, Arial, serif;
+    -fx-background-color:#5bd457;
     -fx-pref-height:30;
-    -fx-pref-width:250;
+    -fx-pref-width:300;
     -fx-alignment:center;
+    -fx-text-fill:#404040;
+}
+
+#addonlabel{
+    -fx-pref-width:800;
+}
+
+#AddToCartBtnContainer{
+    -fx-padding:5;
+}
+
+#AddToCartBtn{
+    -fx-font-family: Lato, Arial, serif;
+    -fx-border-radius:30;
+    -fx-background-radius:30;
+    -fx-background-color:#5bd457;
+    -fx-pref-width:100;
+    -fx-pref-height:30;
 }

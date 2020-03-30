@@ -38,12 +38,15 @@ public class Initialize {
 
     }
 
-    static void openAddToCartWindow(Stage primaryStage, Main main) throws  Exception{
-        Parent root = FXMLLoader.load(main.getClass().getResource("\\project\\fxml\\AddToCartWindow.fxml"));
-        primaryStage.setTitle("Add to cart");
-        primaryStage.setScene(new Scene(root));
-        primaryStage.setResizable(false);
-        primaryStage.show();
+    static void openAddToCartWindow() throws  Exception{
+        FXMLLoader fxmlLoader = new FXMLLoader();
+        fxmlLoader.setLocation(Initialize.class.getResource("\\project\\fxml\\AddToCartWindow.fxml"));
+        Scene scene = new Scene(fxmlLoader.load());
+        Stage stage = new Stage();
+        stage.setResizable(false);
+        stage.setTitle("New Window");
+        stage.setScene(scene);
+        stage.show();
     }
 
 }
