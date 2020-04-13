@@ -1,0 +1,44 @@
+/*FONT*/
+@font-face {
+    src: url('Montserrat-Bold.ttf');
+}
+
+@font-face {
+    src: url('Montserrat-Regular.ttf');
+}
+
+/*TABLEVIEW*/
+.table-view{
+    -fx-font-family: "Montserrat";
+    -fx-selection-bar: #baccbf;
+}
+
+.table-view .table-column{
+    -fx-font-size: 14px;
+    -fx-alignment: CENTER-LEFT;
+}
+
+.table-row-cell{
+    -fx-cell-size: 40px;
+}
+
+.table-view .column-header{
+    -fx-background-color: #f4f4f4;
+    -fx-cell-size: 30px;
+}
+
+/*JFXBUTTON*/
+.jfx-button {
+    -fx-font-family: "Montserrat";
+}
+
+.jfx-button:hover {
+    -fx-font-weight: normal;
+}
+
+/*LABEL*/
+.label{
+    -fx-font-family: "Montserrat";
+}
+
+

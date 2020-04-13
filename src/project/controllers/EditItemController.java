@@ -3,6 +3,7 @@ package project.controllers;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextField;
 import javafx.event.ActionEvent;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -12,11 +13,13 @@ import javafx.stage.Stage;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.URL;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.ResourceBundle;
 import java.util.Set;
 
-public class EditItemController {
+public class EditItemController implements Initializable {
     // FXML FILE: EditItemScreen
     /*
      * @param
@@ -43,6 +46,10 @@ public class EditItemController {
     public Label itemPathField, screenStatus;
     public JFXButton cancelButton, confirmButton;
     private Item selectedItem;
+
+    public void initialize(URL location, ResourceBundle resources) {
+        EditItemPane.getStylesheets().add(getClass().getResource("../text/css/jfxStyle_0.css").toExternalForm());
+    }
 
     // gets the itemImage -> itemImageView
     public void selectItemImage(ActionEvent e) throws IOException {

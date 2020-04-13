@@ -8,6 +8,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 import java.net.URL;
@@ -15,6 +16,7 @@ import java.util.HashMap;
 import java.util.ResourceBundle;
 
 public class StatisticsController implements Initializable {
+    public AnchorPane statsPane;
     public Label dateOfReportLabel;
     public Label totalAmountSoldLabel;
     public Label smallCupsQtyLabel;
@@ -54,6 +56,8 @@ public class StatisticsController implements Initializable {
         teaNameTableView.setItems(teaNameObservableList);
         teaNameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
         teaNameQuantityColumn.setCellValueFactory(new PropertyValueFactory<>("quantity"));
+
+        statsPane.getStylesheets().add(getClass().getResource("../text/css/jfxStyle_1.css").toExternalForm());
     }
 
     // This method close the current window

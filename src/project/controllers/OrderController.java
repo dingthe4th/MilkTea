@@ -98,10 +98,13 @@ public class OrderController implements Initializable {
         OrderScreenPane.getTop().setVisible(false);
 
         buttonActions();
+
+        OrderScreenPane.getStylesheets().add(getClass().getResource("../text/css/jfxStyle_3.css").toExternalForm());
     }
 
     /* This method handles cancel button — just close the stage without return value */
     public void setCancelButton(ActionEvent e) {
+        if(!ErrorPrompts.order_void(new ActionEvent())) return;
         Stage stage = (Stage) cancelButton.getScene().getWindow();
         stage.close();
     }
@@ -133,7 +136,7 @@ public class OrderController implements Initializable {
          *   3 ----- no ice
          */
 
-        if(!ErrorPrompts.warning_confirmation(new ActionEvent())) return;
+        if(!ErrorPrompts.order_confirmation(new ActionEvent())) return;
 
         // for cup size (wink wink)
         RadioButton rb = (RadioButton) cupSize.getSelectedToggle();

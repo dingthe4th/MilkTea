@@ -23,14 +23,34 @@ public class ErrorPrompts {
      *   warning window about 'xxx'
      */
 
-    public static void warning_void_transaction(ActionEvent e) {
+    public static boolean warning_void_transaction(ActionEvent e) {
+        Alert exitPrompt = new Alert(Alert.AlertType.CONFIRMATION);
+        exitPrompt.setHeaderText("Voiding Selected Transaction.");
+        exitPrompt.setContentText("Proceed?");
+        Optional<ButtonType> userChoice = exitPrompt.showAndWait();
+        return userChoice.get() == (ButtonType.OK);
+    }
 
+    public static boolean order_confirmation(ActionEvent e) {
+        Alert exitPrompt = new Alert(Alert.AlertType.CONFIRMATION);
+        exitPrompt.setHeaderText("Confirming Current Order.");
+        exitPrompt.setContentText("Are you sure of this order?");
+        Optional<ButtonType> userChoice = exitPrompt.showAndWait();
+        return userChoice.get() == (ButtonType.OK);
+    }
+
+    public static boolean order_void(ActionEvent e) {
+        Alert exitPrompt = new Alert(Alert.AlertType.CONFIRMATION);
+        exitPrompt.setHeaderText("Voiding Current Order.");
+        exitPrompt.setContentText("Are you sure?");
+        Optional<ButtonType> userChoice = exitPrompt.showAndWait();
+        return userChoice.get() == (ButtonType.OK);
     }
 
     public static boolean warning_home_screen(ActionEvent e) {
         Alert exitPrompt = new Alert(Alert.AlertType.CONFIRMATION);
-        exitPrompt.setHeaderText("CONFIRM.");
-        exitPrompt.setContentText("Back to main menu?.");
+        exitPrompt.setHeaderText("Going Back to the Main Menu.");
+        exitPrompt.setContentText("Proceed?");
         Optional<ButtonType> userChoice = exitPrompt.showAndWait();
         return userChoice.get() == (ButtonType.OK);
     }
@@ -47,6 +67,14 @@ public class ErrorPrompts {
         Alert exitPrompt = new Alert(Alert.AlertType.CONFIRMATION);
         exitPrompt.setHeaderText("This item will be deleted in the list.");
         exitPrompt.setContentText("Continue?");
+        Optional<ButtonType> userChoice = exitPrompt.showAndWait();
+        return userChoice.get() == (ButtonType.OK);
+    }
+
+    public static boolean warning_logout(ActionEvent e) {
+        Alert exitPrompt = new Alert(Alert.AlertType.CONFIRMATION);
+        exitPrompt.setHeaderText("Logging Out of Current User.");
+        exitPrompt.setContentText("Are you sure?");
         Optional<ButtonType> userChoice = exitPrompt.showAndWait();
         return userChoice.get() == (ButtonType.OK);
     }

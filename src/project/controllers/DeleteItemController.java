@@ -3,16 +3,20 @@ package project.controllers;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextField;
 import javafx.event.ActionEvent;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.net.URL;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.ResourceBundle;
 import java.util.Set;
 
-public class DeleteItemController {
+public class DeleteItemController implements Initializable {
     // FXML FILE: DeleteItemScreen
     private static EditModeController editModeController;
     private HashMap<Item, String> itemHashMap;
@@ -22,6 +26,11 @@ public class DeleteItemController {
     public Label itemPathField, screenStatus;
     public JFXButton cancelButton, confirmButton;
     private Item selectedItem;
+    public AnchorPane DeleteItemPane;
+
+    public void initialize(URL location, ResourceBundle resources) {
+        DeleteItemPane.getStylesheets().add(getClass().getResource("../text/css/jfxStyle_0.css").toExternalForm());
+    }
 
     // handles cancel button — just close the stage without return value
     public void setCancelButton(ActionEvent e) {
