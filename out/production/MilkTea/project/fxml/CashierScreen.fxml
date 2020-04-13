@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXTabPane?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.effect.ColorAdjust?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<BorderPane fx:id="CashierPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="1366.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="project.controllers.CashierController">
+   <center>
+      <JFXTabPane fx:id="tabPane" prefHeight="768.0" prefWidth="1000.0" BorderPane.alignment="CENTER" />
+   </center>
+   <left>
+      <Pane prefHeight="768.0" prefWidth="74.0" style="-fx-background-color: f4f4f4;" BorderPane.alignment="CENTER">
+         <children>
+            <ImageView fitHeight="78.0" fitWidth="771.0" layoutX="-348.0" layoutY="345.0" rotate="90.0">
+               <image>
+                  <Image url="@../image/gradient.png" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="goToHomeImageButton" fitHeight="68.0" fitWidth="65.0" layoutX="5.0" layoutY="689.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../image/back.png" />
+               </image>
+               <effect>
+                  <DropShadow />
+               </effect>
+            </ImageView>
+            <ImageView fitHeight="48.0" fitWidth="48.0" layoutX="14.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../image/cashier.png" />
+               </image>
+               <effect>
+                  <ColorAdjust brightness="1.0" />
+               </effect>
+            </ImageView>
+            <Text fill="#f4f4f4" layoutX="-104.0" layoutY="485.0" rotate="-90.0" strokeType="OUTSIDE" strokeWidth="0.0" text="C   A   S   H   I   E   R      M   E   N   U">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Text>
+         </children>
+         <effect>
+            <DropShadow color="#5b5b5b" height="50.0" radius="24.5" width="50.0" />
+         </effect>
+      </Pane>
+   </left>
+   <right>
+      <VBox prefHeight="768.0" prefWidth="325.0" style="-fx-background-color: f4f4f4;" BorderPane.alignment="CENTER">
+         <children>
+            <VBox prefHeight="48.0" prefWidth="325.0" spacing="10.0">
+               <children>
+                  <HBox alignment="CENTER_LEFT" prefHeight="43.0" prefWidth="325.0" spacing="10.0">
+                     <children>
+                        <Label prefHeight="17.0" prefWidth="148.0" text="     TOTAL ITEMS SOLD" textFill="#616161">
+                           <font>
+                              <Font name="System Bold" size="12.0" />
+                           </font></Label>
+                        <Label fx:id="totalItemsSoldLabel" prefHeight="17.0" prefWidth="26.0" text="0" textFill="#616161">
+                           <font>
+                              <Font name="System Bold" size="12.0" />
+                           </font></Label>
+                        <Label prefHeight="17.0" prefWidth="95.0" text="TOTAL SALES" textFill="#616161">
+                           <font>
+                              <Font name="System Bold" size="12.0" />
+                           </font></Label>
+                        <Label fx:id="totalSalesLabel" prefHeight="17.0" prefWidth="31.0" text="0" textFill="#616161">
+                           <font>
+                              <Font name="System Bold" size="12.0" />
+                           </font></Label>
+                     </children>
+                  </HBox>
+               </children>
+               <VBox.margin>
+                  <Insets top="5.0" />
+               </VBox.margin>
+            </VBox>
+            <HBox prefWidth="325.0" spacing="5.0" style="-fx-background-color: #649173;">
+               <children>
+                  <Label prefHeight="55.0" prefWidth="287.0" text="  O R D E R   N O ." textFill="#f4f4f4">
+                     <font>
+                        <Font name="System Bold" size="24.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets left="10.0" />
+                     </HBox.margin>
+                     <effect>
+                        <DropShadow color="#464646" />
+                     </effect>
+                  </Label>
+                  <Label fx:id="orderNumberLabel" prefHeight="55.0" prefWidth="148.0" text="1" textFill="#f4f4f4">
+                     <font>
+                        <Font name="System Bold" size="24.0" />
+                     </font>
+                     <effect>
+                        <DropShadow color="#464646" />
+                     </effect>
+                  </Label>
+               </children>
+               <effect>
+                  <DropShadow />
+               </effect>
+            </HBox>
+            <TableView fx:id="orderTableView" prefHeight="469.0" prefWidth="325.0">
+              <columns>
+                <TableColumn fx:id="orderDetailsColumn" prefWidth="202.0" text="ORDER DETAILS" />
+                <TableColumn fx:id="orderPriceColumn" minWidth="0.0" prefWidth="122.0" text="PRICE" />
+              </columns>
+            </TableView>
+            <HBox alignment="CENTER_LEFT" prefHeight="37.0" prefWidth="325.0">
+               <children>
+                  <Rectangle fx:id="palette02" fill="#649173" height="20.0" stroke="#f4f4f4" strokeMiterLimit="0.0" strokeType="INSIDE" strokeWidth="0.0" width="20.0">
+                     <effect>
+                        <DropShadow color="#a1a1a1" height="10.0" radius="4.5" width="10.0" />
+                     </effect>
+                  </Rectangle>
+                  <Label prefHeight="35.0" prefWidth="212.0" text="     Q U A N T I T Y" textFill="#616161">
+                     <font>
+                        <Font size="16.0" />
+                     </font></Label>
+                  <Label fx:id="orderQuantityLabel" prefHeight="17.0" prefWidth="142.0" text="0" textFill="#616161">
+                     <font>
+                        <Font name="System Bold" size="16.0" />
+                     </font></Label>
+                  <Rectangle fx:id="palette021" fill="#f4f4f4" height="20.0" stroke="BLACK" strokeMiterLimit="0.0" strokeType="INSIDE" width="40.0" />
+               </children>
+            </HBox>
+            <HBox alignment="CENTER_LEFT" prefHeight="31.0" prefWidth="325.0">
+               <children>
+                  <Rectangle fx:id="palette03" fill="#649173" height="20.0" stroke="#f4f4f4" strokeMiterLimit="0.0" strokeType="INSIDE" strokeWidth="0.0" width="20.0">
+                     <effect>
+                        <DropShadow color="#a1a1a1" height="10.0" radius="4.5" width="10.0" />
+                     </effect>
+                  </Rectangle>
+                  <Label prefHeight="27.0" prefWidth="212.0" text="     S U B   T O T A L" textFill="#616161">
+                     <font>
+                        <Font size="16.0" />
+                     </font></Label>
+                  <Label fx:id="orderSubtotalLabel" prefHeight="17.0" prefWidth="142.0" text="0" textFill="#616161">
+                     <font>
+                        <Font name="System Bold" size="16.0" />
+                     </font></Label>
+                  <Rectangle fx:id="palette031" fill="#f4f4f4" height="20.0" stroke="BLACK" strokeMiterLimit="0.0" strokeType="INSIDE" width="40.0" />
+               </children>
+            </HBox>
+            <HBox alignment="CENTER" prefHeight="55.0" prefWidth="325.0">
+               <children>
+                  <JFXButton alignment="CENTER" buttonType="RAISED" onAction="#proceedToNextOrder" prefHeight="46.0" prefWidth="282.0" style="-fx-border-color: #649173; -fx-border-radius: 25px; -fx-border-width: 3; -fx-background-radius: 25;" text="P R O C E E D   T O   P A Y M E N T" textFill="#616161">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                  </JFXButton>
+               </children>
+            </HBox>
+            <HBox alignment="CENTER" prefHeight="47.0" prefWidth="325.0">
+               <children>
+                  <JFXButton buttonType="RAISED" onAction="#voidSelectedItemOrder" prefHeight="45.0" prefWidth="231.0" ripplerFill="#0c4300" style="-fx-border-color: ee6969; -fx-border-radius: 25px; -fx-border-width: 3; -fx-background-radius: 25;" text="V O I D   T R A N S A C T I O N" textFill="#616161">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font></JFXButton>
+               </children>
+            </HBox>
+         </children>
+         <effect>
+            <DropShadow color="#5b5b5b" height="50.0" radius="24.5" width="50.0" />
+         </effect>
+      </VBox>
+   </right>
+</BorderPane>

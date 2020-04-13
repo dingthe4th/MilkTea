@@ -1,0 +1,30 @@
+/*FONT*/
+@font-face {
+    src: url('Montserrat-Bold.ttf');
+}
+
+@font-face {
+    src: url('Montserrat-Regular.ttf');
+}
+
+.jfx-text-field {
+    -fx-font-family: "Montserrat";
+}
+
+.jfx-password-field {
+    -fx-font-family: "Montserrat";
+}
+
+.jfx-button {
+    -fx-font-family: "Montserrat";
+    -jfx-disable-visual-focus: true;
+}
+
+.jfx-button:hover {
+    -fx-background-color: #E0E0E0;
+    -fx-text-fill: #616161;
+}
+
+.label{
+    -fx-font-family: "Montserrat";
+}

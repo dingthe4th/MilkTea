@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXTextArea?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.paint.LinearGradient?>
+<?import javafx.scene.paint.Stop?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane fx:id="HomeScreenPane" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="project.controllers.HomeScreenController">
+   <children>
+      <ImageView fitHeight="281.0" fitWidth="462.0" layoutX="919.0" layoutY="486.0" opacity="0.4">
+         <image>
+            <Image url="@../image/dots.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="TFTGLogo" fitHeight="435.0" fitWidth="430.0" layoutX="134.0" layoutY="78.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../image/tftgLogo.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="46.0" fitWidth="46.0" layoutX="662.0" layoutY="372.0">
+         <image>
+            <Image url="@../image/cashier.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="46.0" fitWidth="46.0" layoutX="662.0" layoutY="462.0">
+         <image>
+            <Image url="@../image/sales.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="46.0" fitWidth="46.0" layoutX="662.0" layoutY="552.0">
+         <image>
+            <Image url="@../image/inventory.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="46.0" fitWidth="46.0" layoutX="662.0" layoutY="642.0">
+         <image>
+            <Image url="@../image/exit.png" />
+         </image>
+      </ImageView>
+      <JFXTextArea fx:id="aboutTFTG" editable="false" focusColor="#3a5c44" layoutX="196.0" layoutY="502.0" prefHeight="189.0" prefWidth="319.0" text="Bring some excitement to your taste buds &#10;with our creamier than ever cream puff add-on. &#10;Our finest tea blends create mouth-watering cravings &#10;that will make you come back for more. &#10;Packed with the highest quality ingredients &#10;that are perfect for any season; &#10;each cup is filled with mouth-watering goodness. &#10;For us, an ideal cup of tea is sourced &#10;from the finest tea leaves and blend them &#10;to create that ideal and unique brew. &#10;Taste from the greens not your ordinary milk tea." unFocusColor="#f4f4f4">
+         <font>
+            <Font name="Segoe UI Light" size="11.0" />
+         </font>
+      </JFXTextArea>
+      <Rectangle fx:id="palette00" fill="#0c4300" height="30.0" layoutX="25.0" layoutY="27.0" stroke="#f4f4f4" strokeMiterLimit="0.0" strokeType="INSIDE" strokeWidth="0.0" width="30.0">
+         <effect>
+            <DropShadow color="#a1a1a1" height="10.0" radius="4.5" width="10.0" />
+         </effect></Rectangle>
+      <Rectangle fx:id="palette03" fill="#dbd5a4" height="30.0" layoutX="25.0" layoutY="204.0" stroke="#f4f4f4" strokeMiterLimit="0.0" strokeType="INSIDE" strokeWidth="0.0" width="30.0">
+         <effect>
+            <DropShadow color="#a1a1a1" height="10.0" radius="4.5" width="10.0" />
+         </effect></Rectangle>
+      <Rectangle fx:id="palette01" fill="#3a5c44" height="30.0" layoutX="25.0" layoutY="84.0" stroke="#f4f4f4" strokeMiterLimit="0.0" strokeType="INSIDE" strokeWidth="0.0" width="30.0">
+         <effect>
+            <DropShadow color="#a1a1a1" height="10.0" radius="4.5" width="10.0" />
+         </effect></Rectangle>
+      <Rectangle fx:id="palette02" fill="#649173" height="30.0" layoutX="25.0" layoutY="144.0" stroke="#f4f4f4" strokeMiterLimit="0.0" strokeType="INSIDE" strokeWidth="0.0" width="30.0">
+         <effect>
+            <DropShadow color="#a1a1a1" height="10.0" radius="4.5" width="10.0" />
+         </effect></Rectangle>
+      <Rectangle fx:id="palette04" fill="#f4f4f4" height="30.0" layoutX="25.0" layoutY="264.0" stroke="#f4f4f4" strokeMiterLimit="0.0" strokeType="INSIDE" strokeWidth="0.0" width="30.0">
+         <effect>
+            <DropShadow color="#a1a1a1" height="10.0" radius="4.5" width="10.0" />
+         </effect></Rectangle>
+      <Rectangle height="168.0" layoutX="184.0" layoutY="511.0" stroke="#f4f4f4" strokeMiterLimit="0.0" strokeType="INSIDE" strokeWidth="0.0" width="5.0">
+         <effect>
+            <DropShadow color="#a1a1a1" height="10.0" radius="4.5" width="10.0" />
+         </effect>
+         <fill>
+            <LinearGradient endX="1.0" endY="1.0">
+               <stops>
+                  <Stop color="#649173" />
+                  <Stop color="#649173" offset="0.007662835249042145" />
+                  <Stop color="#dbd5a4" offset="1.0" />
+               </stops>
+            </LinearGradient>
+         </fill>
+      </Rectangle>
+      <ImageView fitHeight="293.0" fitWidth="719.0" layoutX="662.0" layoutY="1.0">
+         <image>
+            <Image url="@../image/gradientmap.png" />
+         </image>
+         <effect>
+            <DropShadow color="#a1a1a1" />
+         </effect>
+      </ImageView>
+      <JFXButton layoutX="-1.0" prefHeight="768.0" prefWidth="1381.0" text=" " textFill="#0c4300">
+         <font>
+            <Font name="Segoe UI" size="24.0" />
+         </font>
+      </JFXButton>
+      <JFXButton layoutX="25.0" layoutY="691.0" onAction="#logoutUser" ripplerFill="#0c4300" text=" ">
+         <graphic>
+            <ImageView fitHeight="43.0" fitWidth="43.0">
+               <image>
+                  <Image url="@../image/logout.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </JFXButton>
+      <JFXButton buttonType="RAISED" layoutX="723.0" layoutY="350.0" onAction="#window_cashier" prefHeight="90.0" prefWidth="326.0" text="CASHIER MENU" textFill="#3a5c44">
+         <font>
+            <Font name="Segoe UI Black" size="36.0" />
+         </font>
+      </JFXButton>
+      <JFXButton buttonType="RAISED" layoutX="723.0" layoutY="530.0" onAction="#window_edit_mode" prefHeight="90.0" prefWidth="386.0" text="INVENTORY MENU" textFill="#3a5c44">
+         <font>
+            <Font name="Segoe UI Black" size="36.0" />
+         </font>
+      </JFXButton>
+      <JFXButton buttonType="RAISED" layoutX="723.0" layoutY="440.0" onAction="#window_statistics" prefHeight="90.0" prefWidth="491.0" text="DAILY SALES STATISTICS" textFill="#3a5c44">
+         <font>
+            <Font name="Segoe UI Black" size="36.0" />
+         </font>
+      </JFXButton>
+      <JFXButton buttonType="RAISED" layoutX="723.0" layoutY="620.0" onAction="#window_exit" prefHeight="90.0" prefWidth="332.0" text="EXIT PROGRAM" textFill="#3a5c44">
+         <font>
+            <Font name="Segoe UI Black" size="36.0" />
+         </font>
+      </JFXButton>
+   </children>
+</AnchorPane>
