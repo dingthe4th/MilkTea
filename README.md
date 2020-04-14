@@ -5,7 +5,12 @@
   Isaiah Tupal
 
 CURRENT TODOS:
-  3. MAKE THE UI LOOK DOPE!
+  1. MAKE CUSTOM WARNING PROMPTS
+  2. FIX TINIEST BUGS
+  3. EXPORT PROGRAM TO AN .EXE FILE
+  4. SUBMIT TO CANVAS ON MAY 1.
+  
+  Target data of completion : April 25 ~ May 1.
   
   Kindest regards.
 
