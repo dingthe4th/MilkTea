@@ -1,0 +1,107 @@
+/*FONT*/
+@font-face {
+    src: url('Montserrat-Bold.ttf');
+}
+
+@font-face {
+    src: url('Montserrat-Regular.ttf');
+}
+
+/*TABPANE*/
+.jfx-tab-pane{
+    -fx-font-family: "Montserrat";
+    -fx-font-weight: bold;
+}
+
+.jfx-tab-pane .headers-region {
+    -fx-background-color: #f4f4f4;
+}
+.jfx-tab-pane .tab-header-background {
+    -fx-background-color: #f4f4f4;
+}
+.jfx-tab-pane .tab-selected-line {
+    -fx-background-color: #3a5c44;
+}
+
+.jfx-tab-pane .tab-header-area .jfx-rippler{
+    -jfx-rippler-fill:#0c4300;
+}
+
+.tab{
+    -fx-padding: 10 10 10 10;
+}
+
+.tab-label{
+    -fx-text-fill: #212121;
+}
+
+.jfx-tab-pane:hover {
+    -fx-background-color: #0c4300;
+}
+
+.tab:selected .tab-label {
+    -fx-text-fill: #3a5c44;
+}
+
+/*LISTVIEW*/
+.list-view {
+    -fx-font-family: "Montserrat";
+    -fx-background-color: #ebebeb;
+    -fx-font-size: 16px;
+    -fx-padding: 10 10 0 10;
+}
+
+.list-view .list-cell{
+    -fx-padding: 10 0 10 30;
+    transition: -fx-background-color 1s;
+}
+
+.list-view .list-cell:selected {
+    -fx-effect: dropshadow(gaussian, black, 10, 0, 0, 0);
+    -fx-background-color: #baccbf;
+}
+
+.list-view .list-cell:hover {
+    -fx-effect: dropshadow(gaussian, black, 10, 0, 0, 0);
+    -fx-background-color: #ccdbd0;
+}
+
+.list-view .jfx-rippler{
+    -jfx-rippler-fill:#f4f4f4;
+}
+
+/*TABLEVIEW*/
+.table-view{
+    -fx-font-family: "Montserrat";
+    -fx-selection-bar: #baccbf;
+}
+
+.table-view .table-column{
+    -fx-font-size: 14px;
+    -fx-alignment: CENTER-LEFT;
+}
+
+.table-row-cell{
+    -fx-cell-size: 40px;
+}
+
+.table-view .column-header{
+    -fx-background-color: #f4f4f4;
+    -fx-cell-size: 30px;
+}
+
+/*JFXBUTTON*/
+.jfx-button {
+    -fx-font-family: "Montserrat";
+}
+
+.jfx-button:hover {
+    -fx-background-color: #E0E0E0;
+}
+
+/*LABEL*/
+.label{
+    -fx-font-family: "Montserrat";
+}
+
+

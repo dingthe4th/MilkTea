@@ -8,7 +8,7 @@ import javafx.stage.StageStyle;
 public class Main extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception{
-        Parent root = FXMLLoader.load(getClass().getResource("\\project\\fxml\\LoginScreen.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("project/fxml/LoginScreen.fxml"));
         primaryStage.setTitle("Taste from the Greens");
         primaryStage.setScene(new Scene(root));
         primaryStage.initStyle(StageStyle.UNDECORATED);

@@ -1,5 +1,7 @@
 package project.controllers;
 
+import com.jfoenix.controls.JFXPasswordField;
+import com.jfoenix.controls.JFXTextField;
 import javafx.animation.Transition;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
@@ -11,8 +13,10 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
@@ -20,7 +24,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class LoginController {
+public class LoginController implements Initializable {
     /*
     * @param
     * adminUsername = username of admin
@@ -32,10 +36,16 @@ public class LoginController {
      */
     private static final String adminUsername = "username";
     private static final String adminPassWord = "password";
-    public GridPane loginPane;
-    public TextField usernameField;
-    public PasswordField passwordField;
+    public AnchorPane loginPane;
+    public JFXTextField usernameField;
+    public JFXPasswordField passwordField;
     public Label statusMsg;
+
+    public void initialize(URL location, ResourceBundle resources)    {
+        Font.loadFont(getClass().getResourceAsStream("../text/css/Montserrat-Bold.ttf"), 14);
+        Font.loadFont(getClass().getResourceAsStream("../text/css/Montserrat-Regular.ttf"), 14);
+        loginPane.getStylesheets().add(getClass().getResource("../text/css/jfxStyle_0.css").toExternalForm());
+    }
 
     // helper function for adminLogin(AE e) //
     private boolean tryLogin(String id, String pw) {
@@ -58,12 +68,12 @@ public class LoginController {
 
         // login successfully!
         if(tryLogin(id,pw)) {
-            statusMsg.setText("Login successful!");
+            statusMsg.setText("L O G I N   S U C C E S S F U L !");
             goToHomeScreen();
         }
         // login error
         else {
-            statusMsg.setText("Incorrect username or password.");
+            statusMsg.setText("I N C O R R E C T   U S E R N A M E   O R   P A S S W O R D");
         }
     }
 
@@ -83,4 +93,11 @@ public class LoginController {
         stage.setScene(scene);
         stage.show();
     }
+
+    public void window_exit(ActionEvent e) {
+        // TODO This is function 5 stated above
+        boolean confirm = ErrorPrompts.warning_confirmation(new ActionEvent());
+        if(confirm) System.exit(0);
+    }
+
 }

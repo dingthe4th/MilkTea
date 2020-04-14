@@ -1,4 +1,7 @@
 package project.controllers;
+import com.jfoenix.controls.JFXTextArea;
+import javafx.animation.FadeTransition;
+import javafx.animation.SequentialTransition;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -7,10 +10,13 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
+import javafx.scene.shape.Rectangle;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import javafx.util.Duration;
 
 import java.io.*;
 import java.net.URL;
@@ -27,7 +33,16 @@ public class HomeScreenController implements Initializable {
     *  Don't worry, all functions are fully commented.
     * */
     private static final File default_file_path = new File("src/project/text/item_info/item_info.txt");
-    public GridPane HomeScreenPane;
+    public AnchorPane HomeScreenPane;
+
+    public JFXTextArea aboutTFTG;
+    public ImageView TFTGLogo;
+    public Rectangle palette00;
+    public Rectangle palette01;
+    public Rectangle palette02;
+    public Rectangle palette03;
+    public Rectangle palette04;
+
     public HashMap<Item,String> itemHashMap = new HashMap<>();
     private HashMap<Integer, Integer> cupsOrderedHashMap = new HashMap<>();
     private HashMap<Item,Integer> main_ItemOrderedHashMap = new HashMap<>();
@@ -127,10 +142,57 @@ public class HomeScreenController implements Initializable {
         this.totalSalesAmount = totalSalesAmount;
     }
 
+    public void logoutUser(ActionEvent e) throws IOException {
+        boolean confirm = ErrorPrompts.warning_logout(new ActionEvent());
+        if (!confirm) return;
+
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("../fxml/LoginScreen.fxml"));
+        Parent root = loader.load();
+        //HomeScreenController hsc = loader.getController();
+        //hsc.catchStatisticsInformation(cupsOrderedHashMap,main_ItemOrderedHashMap,totalSalesAmount);
+
+        // fxmlloader -> parent -> controller -> scene -> stage
+        Scene scene = new Scene(root);
+        Stage stage = (Stage) HomeScreenPane.getScene().getWindow();
+        stage.setScene(scene);
+        stage.show();
+    }
+
+    public void loadAnimations(){
+        FadeTransition fadeInLogo = new FadeTransition(Duration.seconds(0.5), TFTGLogo);
+        fadeInLogo.setFromValue(0.0);
+        fadeInLogo.setToValue(1.0);
+        fadeInLogo.play();
+
+        FadeTransition fadeInAbout = new FadeTransition(Duration.seconds(0.5), aboutTFTG);
+        fadeInAbout.setFromValue(0.0);
+        fadeInAbout.setToValue(1.0);
+
+        FadeTransition fadeInPalette00 = new FadeTransition(Duration.seconds(0.5), palette00);
+        fadeInPalette00.setFromValue(0.0);
+        fadeInPalette00.setToValue(1.0);
+        FadeTransition fadeInPalette01 = new FadeTransition(Duration.seconds(0.5), palette01);
+        fadeInPalette01.setFromValue(0.0);
+        fadeInPalette01.setToValue(1.0);
+        FadeTransition fadeInPalette02 = new FadeTransition(Duration.seconds(0.5), palette02);
+        fadeInPalette02.setFromValue(0.0);
+        fadeInPalette02.setToValue(1.0);
+        FadeTransition fadeInPalette03 = new FadeTransition(Duration.seconds(0.5), palette03);
+        fadeInPalette03.setFromValue(0.0);
+        fadeInPalette03.setToValue(1.0);
+        FadeTransition fadeInPalette04 = new FadeTransition(Duration.seconds(0.5), palette04);
+        fadeInPalette04.setFromValue(0.0);
+        fadeInPalette04.setToValue(1.0);
+
+        SequentialTransition sequence = new SequentialTransition(fadeInLogo, fadeInAbout, fadeInPalette00, fadeInPalette01,fadeInPalette02,fadeInPalette03,fadeInPalette04);
+        sequence.play();
+    }
+
     /* calls loadAllItems() */
     @Override public void initialize(URL location, ResourceBundle resources) {
         try {
             loadAllItems();
+            loadAnimations();
 
         } catch (IOException e) {
             e.printStackTrace();

@@ -301,6 +301,7 @@ public class EditModeController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         // Add mouse listener to goToHomeImageButton
+        EditModePane.getStylesheets().add(getClass().getResource("../text/css/jfxStyle_2.css").toExternalForm());
         setGoToHomeImageButton();
     }
 }

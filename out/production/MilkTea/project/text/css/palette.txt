@@ -1,0 +1,7 @@
+Base: #3a5c44
+Whitebase: #f4f4f4
+Gradient: #649173 - #dbd5a4
+Heavy: #0c4300
+grey: #616161
+greyLight: #616161
+cancel: #ee6969

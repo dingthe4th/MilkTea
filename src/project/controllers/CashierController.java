@@ -22,6 +22,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.TilePane;
+import javafx.scene.text.Font;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
@@ -84,6 +85,8 @@ public class CashierController implements Initializable {
 
     @Override public void initialize(URL location, ResourceBundle resources)    {
         selectedItem = null;
+
+        CashierPane.getStylesheets().add(getClass().getResource("../text/css/jfxStyle_2.css").toExternalForm());
 
         // initializing table view and its columns
         orderObservableList = FXCollections.observableArrayList();
@@ -194,6 +197,9 @@ public class CashierController implements Initializable {
 
     // This method is used to void an order
     public void voidSelectedItemOrder() {
+
+        if(!ErrorPrompts.warning_void_transaction(new ActionEvent())) return;
+
         // Removes selected item to the current order list
         Order selectedOrder = orderTableView.getSelectionModel().getSelectedItem();
         if(selectedOrder != null) {
@@ -353,6 +359,7 @@ public class CashierController implements Initializable {
 
             /* set up tab */
             tab.setContent(itemListView);
+            tab.setStyle("-fx-background-color: #f4f4f4");
             tabPane.getTabs().add(tab);
         }
     }
