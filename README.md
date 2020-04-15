@@ -9,12 +9,10 @@ CURRENT TODOS:
     The idea is when you press the toggle -> ON, a listView (horizontal) of the add on items should be displayed
     at the top of the borderPane. Please also think of a way of how to increment the qty of this add on per order.
       
-  2. Make the statistics screen mode work.
+  2. Make the statistics screen mode work.p
   
 ISAIAH TODOS
-    1. Create orderwindow
-     1.a style order window
-     1.b create function to launch order window
+    1. Make confirmation window
      
 # MilkTea
 A point of sale system for the business Taste from the Greens. A project for the completion of the requirements in the course software design and engineering (SOFDDESG).
