@@ -77,8 +77,11 @@
             <ToggleButton text = "Cookie"></ToggleButton>
             <ToggleButton text = "Yakult"></ToggleButton>
         </HBox>
-        <VBox id="AddToCartBtnContainer" alignment="CENTER">
+        <VBox fx:id="AddToCartBtnContainer" spacing="20" alignment="CENTER">
             <Button id="AddToCartBtn" text ="Add to Cart"></Button>
+        </VBox>
+        <VBox id="CancelBtnContainer" alignment="CENTER">
+            <Button id="CancelBtn" text ="Cancel"></Button>
         </VBox>
     </VBox>
     <stylesheets>

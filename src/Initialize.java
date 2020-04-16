@@ -1,13 +1,10 @@
-/*
-    This class contains static helper functions needed for initializing
-    scenes/windows
- */
 
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 /*
     Author: Isaiah Tupal
@@ -38,6 +35,18 @@ public class Initialize {
 
     }
 
+
+    static void openConfirmOrderWindow() throws Exception{
+        FXMLLoader fxmlLoader = new FXMLLoader();
+        fxmlLoader.setLocation(Initialize.class.getResource("\\project\\fxml\\ConfirmOrderWindow.fxml"));
+        Scene scene = new Scene(fxmlLoader.load());
+        Stage stage = new Stage();
+        stage.setResizable(false);
+        stage.setTitle("New Window");
+        stage.setScene(scene);
+        stage.show();
+    }
+
     static void openAddToCartWindow() throws  Exception{
         FXMLLoader fxmlLoader = new FXMLLoader();
         fxmlLoader.setLocation(Initialize.class.getResource("\\project\\fxml\\AddToCartWindow.fxml"));
@@ -47,6 +56,16 @@ public class Initialize {
         stage.setTitle("New Window");
         stage.setScene(scene);
         stage.show();
+    }
+
+    static void openLogin(Stage primaryStage, Main main) throws Exception{
+        //Parent root = FXMLLoader.load(getClass().getResource("\\project\\fxml\\LoginScreen.fxml"));
+        Parent root = FXMLLoader.load(main.getClass().getResource("\\project\\fxml\\LoginScreen.fxml"));
+        primaryStage.setTitle("Taste from the Greens");
+        primaryStage.setScene(new Scene(root));
+        primaryStage.initStyle(StageStyle.UNDECORATED);
+        primaryStage.show();
+
     }
 
 }

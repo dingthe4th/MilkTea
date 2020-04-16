@@ -1,6 +1,6 @@
 package project.controllers;
 
-import javafx.animation.Transition;
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -17,8 +17,8 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
 import java.io.IOException;
-import java.net.URL;
-import java.util.ResourceBundle;
+
+
 
 public class LoginController {
     /*
@@ -70,17 +70,6 @@ public class LoginController {
     // if login is successful, goes to the next screen (H0ME SCREEN)
     public void goToHomeScreen() throws IOException {
         // loads new fxml file
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("../fxml/HomeScreen.fxml"));
-        Parent root = loader.load();
-
-        // pass login controller to home screen controller
-        HomeScreenController homeScreenController= loader.getController();
-
-        // fxmlloader -> parent -> controller -> scene -> stage
-
-        Scene scene = new Scene(root);
-        Stage stage = (Stage) loginPane.getScene().getWindow();
-        stage.setScene(scene);
-        stage.show();
+        Initialize.openMainScreen();
     }
 }

@@ -27,9 +27,8 @@
 .toggle-button:selected{
     -fx-text-fill:  #5bd457;
     -fx-border-color:#5bd457;
-  -fx-border-style: solid none solid none;
+    -fx-border-style: solid none solid none;
     -fx-border-width: 2;
-
 }
 
 
@@ -54,9 +53,23 @@
 
 #AddToCartBtn{
     -fx-font-family: Lato, Arial, serif;
+    -fx-font-size:20;
     -fx-border-radius:30;
     -fx-background-radius:30;
     -fx-background-color:#5bd457;
-    -fx-pref-width:100;
     -fx-pref-height:30;
+}
+
+#AddToCartBtn:hover{
+    -fx-text-fill: white;
+}
+
+#CancelBtn{
+      -fx-font-family: Lato, Arial, serif;
+      -fx-border-radius:30;
+      -fx-background-radius:30;
+      -fx-background-color:#e3e3e3;
+      -fx-pref-width:70;
+      -fx-pref-height:30
+      -fx-margin: 20 0 0 0 0;
 }

@@ -1,0 +1,45 @@
+
+#MainPane{
+    -fx-vgrow-policy: always;
+    -fx-alignment:center;
+}
+
+#Header{
+    -fx-font-family: Futura-Bold, Arial, serif;
+    -fx-font-size:20;
+}
+
+.button:hover{
+    -fx-text-fill: white;
+}
+
+#CostLabel{
+    -fx-font-family: Helvetica, Arial, serif;
+    -fx-font-size:30;
+    -fx-text-fill: #5bd457;
+    -fx-margin: 20 0 0 0 0;
+}
+
+#ConfirmBtn{
+    -fx-font-family: Helvetica, Arial, serif;
+    -fx-font-size:20;
+    -fx-border-radius:30;
+    -fx-background-radius:30;
+    -fx-background-color:#5bd457;
+    -fx-pref-height:30;
+    -fx-margin: 20 0 0 0 0;
+    -fx-spacing: 10;
+
+}
+
+
+#CancelBtn{
+      -fx-font-family: Lato, Arial, serif;
+      -fx-border-radius:30;
+      -fx-background-radius:30;
+      -fx-background-color:#e3e3e3;
+      -fx-pref-width:70;
+      -fx-pref-height:30
+      -fx-margin: 20 0 0 0 0;
+}
+
