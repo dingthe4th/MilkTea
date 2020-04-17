@@ -57,7 +57,12 @@
     -fx-border-radius:30;
     -fx-background-radius:30;
     -fx-background-color:#5bd457;
-    -fx-pref-height:30;
+    -fx-pref-width:200;
+    -fx-pref-height:50;
+    -fx-padding: 5px;
+    -fx-border-insets: 5px;
+    -fx-background-insets: 5px;
+
 }
 
 #AddToCartBtn:hover{
@@ -70,6 +75,6 @@
       -fx-background-radius:30;
       -fx-background-color:#e3e3e3;
       -fx-pref-width:70;
-      -fx-pref-height:30
+      -fx-pref-height:30;
       -fx-margin: 20 0 0 0 0;
 }

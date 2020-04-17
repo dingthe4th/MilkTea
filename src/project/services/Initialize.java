@@ -1,10 +1,14 @@
+package project.services;
 
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+
+import java.io.File;
+import java.io.IOException;
+import java.net.URL;
 
 /*
     Author: Isaiah Tupal
@@ -25,12 +29,17 @@ public class Initialize {
         Font.loadFont(main.getClass().getResourceAsStream("/project/css/fonts/Helvetica-Bold.ttf"), 16);
     }
 
-    static void openMainScreen(Stage primaryStage, Main main) throws Exception{
+    public static void openMainScreen() throws IOException{
 
-        Parent root = FXMLLoader.load(main.getClass().getResource("\\project\\fxml\\MainScreen.fxml"));
-        primaryStage.setMinWidth(700);
+        URL resource = new File("src/project/fxml/MainScreen.fxml").toURI().toURL();
+        FXMLLoader fxmlLoader = new FXMLLoader();
+        fxmlLoader.setLocation(resource);
+        Scene scene = new Scene(fxmlLoader.load());
+        Stage primaryStage = new Stage();
+        primaryStage.setMinWidth(1000);
+        primaryStage.setMinHeight(750);
         primaryStage.setTitle("Taste from the Greens");
-        primaryStage.setScene(new Scene(root));
+        primaryStage.setScene(scene);
         primaryStage.show();
 
     }
@@ -47,9 +56,10 @@ public class Initialize {
         stage.show();
     }
 
-    static void openAddToCartWindow() throws  Exception{
+    public static void openAddToCartWindow() throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader();
-        fxmlLoader.setLocation(Initialize.class.getResource("\\project\\fxml\\AddToCartWindow.fxml"));
+        URL resource = new File("src/project/fxml/AddToCartWindow.fxml").toURI().toURL() ;
+        fxmlLoader.setLocation(resource);
         Scene scene = new Scene(fxmlLoader.load());
         Stage stage = new Stage();
         stage.setResizable(false);
@@ -60,9 +70,12 @@ public class Initialize {
 
     static void openLogin(Stage primaryStage, Main main) throws Exception{
         //Parent root = FXMLLoader.load(getClass().getResource("\\project\\fxml\\LoginScreen.fxml"));
-        Parent root = FXMLLoader.load(main.getClass().getResource("\\project\\fxml\\LoginScreen.fxml"));
+        URL resource = new File("src/project/fxml/LoginScreen.fxml").toURI().toURL();
+        FXMLLoader fxmlLoader = new FXMLLoader();
+        fxmlLoader.setLocation(resource);
+        Scene scene = new Scene(fxmlLoader.load());
         primaryStage.setTitle("Taste from the Greens");
-        primaryStage.setScene(new Scene(root));
+        primaryStage.setScene(scene);
         primaryStage.initStyle(StageStyle.UNDECORATED);
         primaryStage.show();
 

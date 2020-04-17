@@ -1,6 +1,7 @@
 package project.Classes;
 
 import java.util.HashSet;
+import java.util.Hashtable;
 
 /*
     This is a class for the drink base such as red milk tea, smoothies, fresh green tea etc
@@ -12,26 +13,29 @@ import java.util.HashSet;
 
 public class DrinkBase {
     String name;
-    static HashSet<DrinkBase> baseList = new HashSet<>();
+    public int id;
+    static Hashtable<String,DrinkBase> baseList = new Hashtable<>();
     /*
-    baseLists all of the bases that has been created so far
+    baseList lists all of the bases that has been created so far
      */
-    public DrinkBase(String name) throws IllegalArgumentException{
-        if(!baseList.contains(name)){
-            this.name=name;
-            baseList.add(this);
-        }
-        else
-            throw new IllegalArgumentException("Base has been created, enter new drink base");
+    public DrinkBase(int id,String name) throws IllegalArgumentException{
+       this.name = name;
+       this.id = id;
+       baseList.put(name,this);
+
+    }
+
+    public static DrinkBase getDrinkBase(String key){
+        return baseList.get(key);
     }
 
     @Override
-    public String toString() {
-        return name;
+    public String toString(){
+        return this.name;
     }
 
-    public static boolean isDrinkBase(String base){
-        return baseList.contains(base);
+    public String toId(){
+        return Integer.toString(this.id);
     }
 
 

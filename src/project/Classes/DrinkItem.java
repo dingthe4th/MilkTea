@@ -10,13 +10,18 @@ package project.Classes;
 public class DrinkItem {
     public String name;
     public DrinkBase base;
-    public DrinkSize size;
     public Sweetness sweetness;
-    public String imgPath;
+    public String imgPath = "src/project/image/default.png";
+    public int id;
     float cost;
+    public DrinkSize size = DrinkSize.MEDIUM;
 
-    public DrinkItem(String name, String stringBase, String size, String imgath){
+    public DrinkItem(int id, String name, String drinkBase, String imgpath, float cost ){
+        this.id = id;
         this.name = name;
+        this.base = DrinkBase.getDrinkBase(drinkBase);
+        this.imgPath = imgpath;
+        this.cost = cost;
     }
 
     public  DrinkItem(){
@@ -26,8 +31,11 @@ public class DrinkItem {
         sweetness = Sweetness.FULL;
     }
 
+
     public float getCost(){
         return 69;
     }
+
+
 
 }

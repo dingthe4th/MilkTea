@@ -5,6 +5,8 @@ import javafx.scene.control.Label;
 import javafx.scene.control.Toggle;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.image.ImageView;
+import project.Classes.DrinkItem;
+import project.services.OrderHandler;
 
 public class AddToCartWindowController {
 
@@ -24,7 +26,10 @@ public class AddToCartWindowController {
     ToggleGroup IceLevelGroup;
 
 
-
+    public void initialize(){
+        DrinkItem drinkItem = OrderHandler.getOrderedDrink();
+        DrinkName.setText(drinkItem.name);
+    }
 
 
 }

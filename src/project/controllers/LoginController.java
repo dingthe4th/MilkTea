@@ -1,20 +1,12 @@
 package project.controllers;
 
-
+import javafx.stage.Stage;
+import project.services.Initialize;
 import javafx.event.ActionEvent;
-import javafx.fxml.FXMLLoader;
-import javafx.fxml.Initializable;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.VBox;
-import javafx.stage.Stage;
-import javafx.stage.StageStyle;
 
 import java.io.IOException;
 
@@ -32,6 +24,7 @@ public class LoginController {
      */
     private static final String adminUsername = "username";
     private static final String adminPassWord = "password";
+
     public GridPane loginPane;
     public TextField usernameField;
     public PasswordField passwordField;
@@ -69,7 +62,9 @@ public class LoginController {
 
     // if login is successful, goes to the next screen (H0ME SCREEN)
     public void goToHomeScreen() throws IOException {
-        // loads new fxml file
+        // loads new Main screen fxml file
         Initialize.openMainScreen();
+        Stage stage = (Stage)loginPane.getScene().getWindow();
+        stage.close();
     }
 }
