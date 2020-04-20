@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<jnlp spec="1.0" xmlns:jfx="http://javafx.com" href="MilkTea.jnlp">
+  <information>
+    <title>MilkTea</title>
+    <vendor>Unknown</vendor>
+    <description>MilkTea</description>
+    <offline-allowed/>
+  </information>
+  <resources>
+    <j2se version="1.6+" href="http://java.sun.com/products/autodl/j2se"/>
+    <jar href="MilkTea.jar" size="12476827" download="eager" />
+    <jar href="jfoenix-8.0.8.jar" size="2708772" download="eager" />
+    <jar href="opencsv-5.1.jar" size="200354" download="eager" />
+  </resources>
+  <jfx:javafx-desc  width="1000" height="700" main-class="Main"  name="MilkTea" />
+  <update check="background"/>
+</jnlp>

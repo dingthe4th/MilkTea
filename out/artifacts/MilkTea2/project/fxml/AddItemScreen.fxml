@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
+
+<?import java.net.URL?>
+<AnchorPane fx:id="AddItemPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="475.0" prefWidth="768.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="project.controllers.AddItemController">
+   <children>
+      <Rectangle arcHeight="40.0" arcWidth="40.0" fill="#f4f4f4" height="261.0" layoutX="358.0" layoutY="104.0" stroke="#9e9e9e" strokeType="INSIDE" width="406.0" />
+      <ImageView fitHeight="637.0" fitWidth="522.0" layoutX="453.0" layoutY="-115.0" opacity="0.5">
+         <image>
+            <Image url="@../image/SupremeChocomalt.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="itemImageView" fitHeight="300.0" fitWidth="300.0" layoutX="38.0" layoutY="72.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../image/default.png" />
+         </image>
+      </ImageView>
+      <VBox layoutX="372.0" layoutY="118.0" spacing="40.0">
+         <children>
+            <JFXTextField fx:id="itemNameField" focusColor="#649173" prefHeight="25.0" prefWidth="377.0" promptText="Enter item name here" unFocusColor="#616161">
+               <font>
+                  <Font size="14.0" />
+               </font></JFXTextField>
+            <JFXTextField fx:id="itemTypeField" focusColor="#649173" prefHeight="25.0" prefWidth="377.0" promptText="Enter item type here" unFocusColor="#616161">
+               <font>
+                  <Font size="14.0" />
+               </font></JFXTextField>
+            <JFXTextField fx:id="itemPriceField" focusColor="#649173" prefHeight="25.0" prefWidth="377.0" promptText="Enter item price here" unFocusColor="#616161">
+               <font>
+                  <Font size="14.0" />
+               </font></JFXTextField>
+         </children>
+      </VBox>
+      <Label fx:id="itemPathField" layoutX="372.0" layoutY="321.0" prefHeight="17.0" prefWidth="377.0" text="src/project/image/default.png">
+         <font>
+            <Font size="14.0" />
+         </font></Label>
+      <Label fx:id="screenStatus" layoutX="107.0" layoutY="33.0" text="A  D  D     I  T  E  M" textFill="#3a5c44">
+         <font>
+            <Font name="System Bold" size="18.0" />
+         </font>
+      </Label>
+      <Rectangle arcHeight="25.0" arcWidth="25.0" fill="WHITE" height="50.0" layoutX="38.0" layoutY="22.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="50.0" />
+      <ImageView fitHeight="35.0" fitWidth="35.0" layoutX="46.0" layoutY="30.0">
+         <image>
+            <Image url="@../image/delete.png" />
+         </image>
+      </ImageView>
+      <HBox layoutX="396.0" layoutY="415.0" spacing="20.0">
+         <children>
+            <JFXButton fx:id="confirmButton" buttonType="RAISED" onAction="#setConfirmButton" prefHeight="29.0" prefWidth="191.0" ripplerFill="#0c4300" style="-fx-border-color: #649173; -fx-border-radius: 25; -fx-border-width: 2; -fx-background-radius: 25;" text="C  O  N  F  I  R  M" textFill="#616161">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </JFXButton>
+            <JFXButton fx:id="cancelButton" buttonType="RAISED" onAction="#setCancelButton" prefHeight="29.0" prefWidth="118.0" ripplerFill="#0c4300" style="-fx-border-color: ee6969; -fx-border-radius: 25; -fx-border-width: 2; -fx-background-radius: 25;" text="C  A  N  C  E  L" textFill="#616161" />
+         </children>
+      </HBox>
+      <JFXButton buttonType="RAISED" layoutX="72.0" layoutY="379.0" onAction="#selectItemImage" prefHeight="29.0" prefWidth="232.0" style="-fx-background-color: dbd5a4; -fx-border-radius: 25; -fx-border-width: 2; -fx-background-radius: 25;" text="S E L E C T   F I L E P A T H" textFill="#616161">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </JFXButton>
+   </children>
+   <stylesheets>
+      <URL value="@../text/css/jfxStyle_0.css" />
+   </stylesheets>
+</AnchorPane>

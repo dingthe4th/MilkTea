@@ -1,0 +1,63 @@
+/*FONT*/
+@font-face {
+    src: url('Montserrat-Bold.ttf');
+}
+
+@font-face {
+    src: url('Montserrat-Regular.ttf');
+}
+
+/*LISTVIEW*/
+.list-view {
+    -fx-font-family: "Montserrat";
+    -fx-background-color: #ebebeb;
+    -fx-font-size: 12px;
+    -fx-padding: 3 3 3 3;
+}
+
+.list-view .list-cell{
+    -fx-padding: 3 3 3 3;
+}
+
+.list-view .list-cell:selected {
+    -fx-effect: dropshadow(gaussian, black, 10, 0, 0, 0);
+    -fx-background-color: #baccbf;
+}
+
+.list-view .list-cell:hover {
+    -fx-effect: dropshadow(gaussian, black, 10, 0, 0, 0);
+    -fx-background-color: #ccdbd0;
+}
+
+.list-view .jfx-rippler{
+    -jfx-rippler-fill:#f4f4f4;
+}
+
+/*RADIOBUTTON*/
+.jfx-radio-button {
+    -fx-font-family: "Montserrat";
+    -jfx-disable-visual-focus: true;
+    -fx-selected-color: #3a5c44;
+    -fx-font-weight: bold;
+}
+
+/*TOGGLEBUTTON*/
+.jfx-toggle-button {
+    -fx-font-family: "Montserrat";
+    -fx-font-weight: bold;
+}
+
+.label{
+    -fx-font-family: "Montserrat";
+}
+
+/*BUTTON*/
+.button{
+    -fx-font-family: "Montserrat";
+}
+
+.button:hover{
+    -fx-background-color: #dbd5a4;
+    -fx-font-family: "Montserrat";
+    -fx-font-weight: bold;
+}

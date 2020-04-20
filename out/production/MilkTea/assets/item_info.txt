@@ -1,0 +1,5 @@
+Sabu3,single,69.0,/project/image/default.png
+Isaiah,Malandi pero pogi,69.0,/project/image/default.png
+DingXD,add on,60.0,/project/image/default.png
+Sabu4,single,69.0,/project/image/default.png
+Soju "A" flavored,add on,100.0,/project/image/default.png
