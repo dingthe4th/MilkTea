@@ -20,6 +20,7 @@ import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -44,7 +45,8 @@ public class LoginController implements Initializable {
     public void initialize(URL location, ResourceBundle resources)    {
         Font.loadFont(getClass().getResourceAsStream("../text/css/Montserrat-Bold.ttf"), 14);
         Font.loadFont(getClass().getResourceAsStream("../text/css/Montserrat-Regular.ttf"), 14);
-        loginPane.getStylesheets().add(getClass().getResource("../text/css/jfxStyle_0.css").toExternalForm());
+        //String dirPath = System.getProperty("user.dir");
+
     }
 
     // helper function for adminLogin(AE e) //
@@ -80,14 +82,15 @@ public class LoginController implements Initializable {
     // if login is successful, goes to the next screen (H0ME SCREEN)
     public void goToHomeScreen() throws IOException {
         // loads new fxml file
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("../fxml/HomeScreen.fxml"));
-        Parent root = loader.load();
 
-        // pass login controller to home screen controller
-        HomeScreenController homeScreenController= loader.getController();
-
-        // fxmlloader -> parent -> controller -> scene -> stage
-
+        /*
+         URL resource = new File("src/project/fxml/MainScreen.fxml").toURI().toURL();
+        FXMLLoader fxmlLoader = new FXMLLoader();
+        fxmlLoader.setLocation(resource);
+        Scene scene = new Scene(fxmlLoader.load());
+        Stage primaryStage = new Stage();
+         */
+        Parent root = FXMLLoader.load(getClass().getResource("/project/fxml/HomeScreen.fxml"));
         Scene scene = new Scene(root);
         Stage stage = (Stage) loginPane.getScene().getWindow();
         stage.setScene(scene);
@@ -98,6 +101,15 @@ public class LoginController implements Initializable {
         // TODO This is function 5 stated above
         boolean confirm = ErrorPrompts.warning_confirmation(new ActionEvent());
         if(confirm) System.exit(0);
+    }
+
+    public void initialize(){
+        try{
+            goToHomeScreen();
+        }
+        catch (Exception e){
+            System.out.println("I just want this to be done man"+e);
+        }
     }
 
 }

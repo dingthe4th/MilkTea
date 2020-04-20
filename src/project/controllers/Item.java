@@ -6,9 +6,9 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
+import javax.print.DocFlavor;
+import java.io.*;
+
 
 public class Item {
     /*
@@ -21,7 +21,7 @@ public class Item {
      * item_path = path of image of item
      * item_image = image of the item
      * */
-    public final static String default_item_path = "src/project/image/default.png";
+    public final static String default_item_path = "/project/image/default.png";
     private static final double image_size = 100;
     public String item_name;
     public String item_type;
@@ -37,8 +37,11 @@ public class Item {
             img_size /= 2;
         }
         if(d.equals("default")) d = default_item_path;
-        Image image = new Image(new FileInputStream(d));
 
+        InputStream is = getClass().getResourceAsStream(d);
+//        InputStreamReader isr = new InputStreamReader(is);
+//        BufferedReader bfr = new BufferedReader(isr);
+        Image image = new Image(is);
         this.item_name = a;
         this.item_type = b;
         this.item_price = c;

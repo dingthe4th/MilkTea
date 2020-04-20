@@ -30,6 +30,8 @@ public class OrderController implements Initializable {
     public JFXToggleButton addOnToggle;
     public JFXToggleButton discountToggle;
 
+    private  static OrderController instanceOf;
+
     /*
     * These are the group of RadioButtons
     * in OrderScreen.fxml
@@ -84,6 +86,8 @@ public class OrderController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         addOnHashMap = new HashMap<>();
 
+        instanceOf = this;
+
         itemAddOnDisplayObservableList = FXCollections.observableArrayList();
         itemAddOnObservableList_String = FXCollections.observableArrayList();
         orderList = FXCollections.observableArrayList();
@@ -99,7 +103,7 @@ public class OrderController implements Initializable {
 
         buttonActions();
 
-        OrderScreenPane.getStylesheets().add(getClass().getResource("../text/css/jfxStyle_3.css").toExternalForm());
+
     }
 
     /* This method handles cancel button — just close the stage without return value */
@@ -456,22 +460,22 @@ public class OrderController implements Initializable {
     }
 
     /* This method is used to catch information from CashierScreen */
-    void catchInformation(Item selectedItem, HashMap<Item,String> ihm,
+    static void catchInformation(Item selectedItem, HashMap<Item,String> ihm,
                   HashMap<Integer, Integer> ohm, HashMap<Item, Integer> iohm, ObservableList<Order> orderList,
                   ArrayList<Item> itemAddOnList, boolean newOrder) {
-        this.selectedItem = selectedItem;
-        this.orderList = FXCollections.observableArrayList(orderList);
-        this.itemHashMap = new HashMap<>(ihm);
-        this.cupsOrderedHashMap = new HashMap<>(ohm);
-        this.itemOrderedHashMap = new HashMap<>(iohm);
-        this.itemHashSet = new HashSet<>(ihm.values());
-        this.itemAddOnList = new ArrayList<>(itemAddOnList);
-        itemImage.setImage(selectedItem.item_image.getImage());
-        orderPriceLabel.setText(Double.toString(selectedItem.item_price));
-        orderNameLabel.setText(selectedItem.item_name);
-        price = selectedItem.item_price;
-        this.newOrder = newOrder;
+        instanceOf.selectedItem = selectedItem;
+        instanceOf.orderList = FXCollections.observableArrayList(orderList);
+        instanceOf.itemHashMap = new HashMap<>(ihm);
+        instanceOf.cupsOrderedHashMap = new HashMap<>(ohm);
+        instanceOf.itemOrderedHashMap = new HashMap<>(iohm);
+        instanceOf.itemHashSet = new HashSet<>(ihm.values());
+        instanceOf.itemAddOnList = new ArrayList<>(itemAddOnList);
+        instanceOf.itemImage.setImage(selectedItem.item_image.getImage());
+        instanceOf.orderPriceLabel.setText(Double.toString(selectedItem.item_price));
+        instanceOf.orderNameLabel.setText(selectedItem.item_name);
+        instanceOf.price = selectedItem.item_price;
+        instanceOf.newOrder = newOrder;
 
-        initAddOnItemsDisplay();
+        instanceOf.initAddOnItemsDisplay();
     }
 }

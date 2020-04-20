@@ -36,6 +36,7 @@ public class EditItemController implements Initializable {
      *   cancelButton -> go back to previous screen (Edit mode controller)
      *   confirmButton -> go back to previous screen (EMC -> update current hash map)
      * */
+    private static EditItemController instanceOf;
     private static EditModeController editModeController;
     private HashMap<Item, String> itemHashMap;
     private Set<String> itemHashSet;
@@ -48,7 +49,8 @@ public class EditItemController implements Initializable {
     private Item selectedItem;
 
     public void initialize(URL location, ResourceBundle resources) {
-        EditItemPane.getStylesheets().add(getClass().getResource("../text/css/jfxStyle_0.css").toExternalForm());
+        instanceOf = this;
+
     }
 
     // gets the itemImage -> itemImageView
@@ -125,22 +127,23 @@ public class EditItemController implements Initializable {
     *   gets the hash map and selected item from the EditModeScreen
     *   displays the selected item details to this .fxml window
     */
-    void catchInformation(HashMap<Item, String> hm, Item selectedItem) {
-        this.itemHashMap = new HashMap<>(hm);
-        this.itemHashSet = new HashSet<>(hm.values());
-        this.selectedItem = selectedItem;
+    static void catchInformation(HashMap<Item, String> hm, Item selectedItem) {
+
+        instanceOf.itemHashMap = new HashMap<>(hm);
+        instanceOf.itemHashSet = new HashSet<>(hm.values());
+        instanceOf.selectedItem = selectedItem;
 
         // display selected item details
-        itemNameField.setText(selectedItem.item_name);
-        itemTypeField.setText(selectedItem.item_type);
-        itemPriceField.setText(Double.toString(selectedItem.item_price));
-        itemPathField.setText(selectedItem.item_path);
-        itemImageView.setImage(selectedItem.item_image.getImage());
-        screenStatus.setText("Editing item: " + selectedItem.item_name);
+        instanceOf.itemNameField.setText(selectedItem.item_name);
+        instanceOf.itemTypeField.setText(selectedItem.item_type);
+        instanceOf.itemPriceField.setText(Double.toString(selectedItem.item_price));
+        instanceOf.itemPathField.setText(selectedItem.item_path);
+        instanceOf.itemImageView.setImage(selectedItem.item_image.getImage());
+        instanceOf.screenStatus.setText("Editing item: " + selectedItem.item_name);
 
         // checker
-        System.out.println(itemHashMap.size());            // Expected : X
-        System.out.println(itemHashSet.size());            // Expected : X
+        System.out.println(instanceOf.itemHashMap.size());            // Expected : X
+        System.out.println(instanceOf.itemHashSet.size());            // Expected : X
     }
 
     /*

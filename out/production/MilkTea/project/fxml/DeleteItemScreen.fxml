@@ -10,6 +10,7 @@
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
+<?import java.net.URL?>
 <AnchorPane fx:id="DeleteItemPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="475.0" prefWidth="768.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="project.controllers.DeleteItemController">
    <children>
       <Rectangle arcHeight="40.0" arcWidth="40.0" fill="#f4f4f4" height="233.0" layoutX="340.0" layoutY="129.0" stroke="#9e9e9e" strokeType="INSIDE" width="416.0" />
@@ -65,4 +66,7 @@
          </image>
       </ImageView>
    </children>
+   <stylesheets>
+      <URL value="@../text/css/jfxStyle_0.css" />
+   </stylesheets>
 </AnchorPane>

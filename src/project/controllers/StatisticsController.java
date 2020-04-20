@@ -1,21 +1,31 @@
 package project.controllers;
 
+import com.opencsv.CSVWriter;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
+import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
+import javafx.stage.DirectoryChooser;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 
+import java.io.File;
+import java.io.FileWriter;
 import java.net.URL;
 import java.util.HashMap;
 import java.util.ResourceBundle;
+import java.util.Scanner;
 
 public class StatisticsController implements Initializable {
+
+    private static StatisticsController instanceOf;
+
     public AnchorPane statsPane;
     public Label dateOfReportLabel;
     public Label totalAmountSoldLabel;
@@ -43,8 +53,14 @@ public class StatisticsController implements Initializable {
     private HashMap<Item,Integer> main_ItemOrderedHashMap = new HashMap<>();
     private double totalSalesAmount;
 
+    //information for generating and exporting report
+    private int itemSold;
+    private int addOnSold;
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+
+        instanceOf = this;
         // Initialize teaTypeTableView
         teaTypeObservableList = FXCollections.observableArrayList();
         teaTypeTableView.setItems(teaTypeObservableList);
@@ -57,7 +73,6 @@ public class StatisticsController implements Initializable {
         teaNameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
         teaNameQuantityColumn.setCellValueFactory(new PropertyValueFactory<>("quantity"));
 
-        statsPane.getStylesheets().add(getClass().getResource("../text/css/jfxStyle_1.css").toExternalForm());
     }
 
     // This method close the current window
@@ -67,14 +82,14 @@ public class StatisticsController implements Initializable {
     }
 
     // This method is used to get information from HomeScreen
-    public void catchInformation(HashMap<Integer, Integer> cupsOrderedHashMap, HashMap<Item,Integer> itemOrderedHashMap, double totalSalesAmount) {
-        this.cupsOrderedHashMap = cupsOrderedHashMap;
-        this.main_ItemOrderedHashMap = itemOrderedHashMap;
-        this.totalSalesAmount = totalSalesAmount;
+    public static void catchInformation(HashMap<Integer, Integer> cupsOrderedHashMap, HashMap<Item,Integer> itemOrderedHashMap, double totalSalesAmount) {
+        instanceOf.cupsOrderedHashMap = cupsOrderedHashMap;
+        instanceOf.main_ItemOrderedHashMap = itemOrderedHashMap;
+        instanceOf.totalSalesAmount = totalSalesAmount;
 
-        populateTeaNameTableView();
-        populateTeaTypeTableView();
-        displayOverallStatistics();
+        instanceOf.populateTeaNameTableView();
+        instanceOf.populateTeaTypeTableView();
+        instanceOf.displayOverallStatistics();
     }
 
     // This method is used to populate teaNameTableView
@@ -104,6 +119,92 @@ public class StatisticsController implements Initializable {
         }
     }
 
+    public void exportStatistic(){
+        Stage chooser = new Stage();
+        chooser.setTitle("Choose the directory to save your export");
+
+        // Choose directory
+        DirectoryChooser directoryChooser = new DirectoryChooser();
+
+
+        directoryChooser.setInitialDirectory(new File(System.getProperty("user.home")));
+        File dir =  directoryChooser.showDialog(chooser);
+
+        //create file
+        File report = new File(dir.getAbsolutePath() + "/Report" +  java.time.LocalDate.now() + ".csv");
+        try{
+            FileWriter filewriter = new FileWriter(report);
+            CSVWriter csvWriter = new CSVWriter(filewriter);
+            //to space out tables
+            String [] newLineRow= {""};
+            // date
+            String[] row1 = {"Date ", java.time.LocalDate.now()+""};
+            csvWriter.writeNext(row1);
+            //Total amount
+            String[] row2= {"Total Amount", totalSalesAmount+""};
+            csvWriter.writeNext(row2);
+            //total cups sold
+
+            int s=0,l=0,m=0;
+            for(Integer cupSize : cupsOrderedHashMap.keySet()) {
+                if(cupSize.equals(1)) {
+                   s=cupsOrderedHashMap.get(cupSize);
+                } else if (cupSize.equals(2)) {
+                    m=cupsOrderedHashMap.get(cupSize);
+                } else if (cupSize.equals(3)) {
+                    l=cupsOrderedHashMap.get(cupSize);
+                }
+            }
+            String[] row3 = {"Total Cups Sold",s+" s",m+" m", l+" l"};
+            csvWriter.writeNext(row3);
+
+            //total items sold
+            String[] row4 = {"Total items sold", itemSold+""};
+            csvWriter.writeNext(row4);
+
+            //total add ons sold
+            String[] row5 = {"Total add ons sold", addOnSold+""};
+            csvWriter.writeNext(row5);
+
+            csvWriter.writeNext(newLineRow);
+
+            // tea type table
+            String [] teaTypeHeader = {"Tea Category", "Quantity"};
+            csvWriter.writeNext(teaTypeHeader);
+
+
+            // add the tea type table to the file
+            for(ItemSold.PerType perType: teaTypeObservableList) {
+
+                String rowN[]={perType.type+"",perType.qty+""};
+                csvWriter.writeNext(rowN);
+            }
+            csvWriter.writeNext(newLineRow);
+
+            //adds the tea name table to the file
+            String[] teaNameHeader = {"Tea Name","Quantity"};
+            csvWriter.writeNext(teaNameHeader);
+            for(ItemSold item: teaNameObservableList) {
+                String rowN[]={item.name+"",item.quantity+""};
+                csvWriter.writeNext(rowN);
+            }
+            csvWriter.close();
+        }
+        catch(Exception e){
+            System.out.println(e);
+        }
+
+        /*
+            status message saying that file has been generated
+         */
+        statusMessage.setText("File Report" +  java.time.LocalDate.now() + ".csv");
+
+
+
+
+    }
+
+
     // This method is used to display the overall sale statistics
     private void displayOverallStatistics() {
         // Displaying total sales amount
@@ -124,8 +225,8 @@ public class StatisticsController implements Initializable {
         }
 
         // Displaying total items sold
-        int itemSold = 0;
-        int addOnSold = 0;
+        itemSold = 0;
+        addOnSold = 0;
         for(Item item : main_ItemOrderedHashMap.keySet()) {
             itemSold += main_ItemOrderedHashMap.get(item);
             if(item.getItem_type().equalsIgnoreCase("add on"))

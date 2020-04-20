@@ -18,6 +18,7 @@ import java.util.Set;
 
 public class DeleteItemController implements Initializable {
     // FXML FILE: DeleteItemScreen
+    private static DeleteItemController instanceOf;
     private static EditModeController editModeController;
     private HashMap<Item, String> itemHashMap;
     private Set<String> itemHashSet;
@@ -29,7 +30,7 @@ public class DeleteItemController implements Initializable {
     public AnchorPane DeleteItemPane;
 
     public void initialize(URL location, ResourceBundle resources) {
-        DeleteItemPane.getStylesheets().add(getClass().getResource("../text/css/jfxStyle_0.css").toExternalForm());
+        instanceOf = this;
     }
 
     // handles cancel button — just close the stage without return value
@@ -65,29 +66,29 @@ public class DeleteItemController implements Initializable {
      *   gets the hash map and selected item from the EditModeScreen
      *   displays the selected item details to this .fxml window
      */
-    void catchInformation(HashMap<Item, String> hm, Item item) {
-        this.itemHashMap = new HashMap<>(hm);
-        this.itemHashSet = new HashSet<>(hm.values());
-        this.selectedItem = item;
+    public static void catchInformation(HashMap<Item, String> hm, Item item) {
+        instanceOf.itemHashMap = new HashMap<>(hm);
+        instanceOf.itemHashSet = new HashSet<>(hm.values());
+        instanceOf.selectedItem = item;
 
         // display selected item details
-        itemNameField.setText(item.item_name);
-        itemTypeField.setText(item.item_type);
+        instanceOf.itemNameField.setText(item.item_name);
+        instanceOf.itemTypeField.setText(item.item_type);
         String priceText = Double.toString(item.item_price);
-        itemPriceField.setText(priceText);
-        itemPathField.setText(item.item_path);
-        itemImageView.setImage(item.item_image.getImage());
-        screenStatus.setText("Deleting item: " + item.item_name);
+        instanceOf.itemPriceField.setText(priceText);
+        instanceOf.itemPathField.setText(item.item_path);
+        instanceOf.itemImageView.setImage(item.item_image.getImage());
+        instanceOf.screenStatus.setText("Deleting item: " + item.item_name);
 
         // checker
-        System.out.println(itemHashMap.size());            // Expected : X
-        System.out.println(itemHashSet.size());            // Expected : X
+        System.out.println(instanceOf.itemHashMap.size());            // Expected : X
+        System.out.println(instanceOf.itemHashSet.size());            // Expected : X
     }
 
    /*
      This function injects EditModeController into this controller
      < Gets called from EditModeController to be injected>
-     Confused about what this function does? So am I!
+     Confused about what this function does? So am I!instan
      Go to this link and study them:
      https://www.java-forums.org/javafx/97288-how-return-value-modal-window-back-parent.html
   */

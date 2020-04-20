@@ -13,6 +13,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
+<?import java.net.URL?>
 <BorderPane fx:id="EditModePane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="1366.0" style="-fx-background-color: #f4f4f4;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="project.controllers.EditModeController">
    <bottom>
       <Label fx:id="screenStatus" text="Screen status" BorderPane.alignment="CENTER" />
@@ -109,4 +110,7 @@
          </effect>
       </VBox>
    </right>
+   <stylesheets>
+      <URL value="@../text/css/jfxStyle_2.css" />
+   </stylesheets>
 </BorderPane>

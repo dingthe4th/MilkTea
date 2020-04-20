@@ -40,6 +40,8 @@ public class CashierController implements Initializable {
     * This class handles the order management of the program
     */
 
+    private static CashierController instanceOf;
+
     public BorderPane CashierPane;
     public JFXTabPane tabPane;
     public Label orderNumberLabel, totalItemsSoldLabel, totalSalesLabel;
@@ -84,9 +86,10 @@ public class CashierController implements Initializable {
 
 
     @Override public void initialize(URL location, ResourceBundle resources)    {
+        instanceOf = this;
         selectedItem = null;
 
-        CashierPane.getStylesheets().add(getClass().getResource("../text/css/jfxStyle_2.css").toExternalForm());
+       // CashierPane.getStylesheets().add(getClass().getResource("/text/css/jfxStyle_2.css").toExternalForm());
 
         // initializing table view and its columns
         orderObservableList = FXCollections.observableArrayList();
@@ -130,18 +133,17 @@ public class CashierController implements Initializable {
         return false;
     }
 
+
+
     // This method is used to go to OrderScreen
     public void goToOrderScreen() throws IOException {
         if(!isItemSelected()) return;
         CashierPane.setOpacity(.25);
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("../fxml/OrderScreen.fxml"));
-        Parent root = loader.load();
-
-        OrderController orderController = loader.getController();
+        Parent root = FXMLLoader.load(getClass().getResource("/project/fxml/OrderScreen.fxml"));
         OrderController.injectCashierController(this);
 
         if(newOrder) current_itemOrderedHashMap = new HashMap<>();
-        orderController.catchInformation(selectedItem,itemHashMap,cupsOrderedHashMap,current_itemOrderedHashMap,orderObservableList,itemAddOnList,newOrder);
+        OrderController.catchInformation(selectedItem,itemHashMap,cupsOrderedHashMap,current_itemOrderedHashMap,orderObservableList,itemAddOnList,newOrder);
 
         Scene scene = new Scene(root);
         Stage stage = new Stage();
@@ -159,10 +161,10 @@ public class CashierController implements Initializable {
         if (!confirm) return;
 
         // loads new fxml file
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("../fxml/HomeScreen.fxml"));
-        Parent root = loader.load();
-        HomeScreenController hsc = loader.getController();
-        hsc.catchStatisticsInformation(cupsOrderedHashMap,main_ItemOrderedHashMap,totalSalesAmount);
+
+        Parent root = FXMLLoader.load(getClass().getResource("/project/fxml/HomeScreen.fxml"));
+
+        HomeScreenController.catchStatisticsInformation(cupsOrderedHashMap,main_ItemOrderedHashMap,totalSalesAmount);
 
         // fxmlloader -> parent -> controller -> scene -> stage
         Scene scene = new Scene(root);
@@ -266,17 +268,21 @@ public class CashierController implements Initializable {
         calculateCurrentOrderTotalPrice();
     }
 
+
+
+
+
     // This method is used to catch information from HomeScreen
-    void catchInformation(HashMap<Item, String> hm) {
-        this.itemHashMap = new HashMap<>(hm);
-        this.itemHashSet = new HashSet<>(hm.values());
+    static void catchInformation(HashMap<Item, String> hm) {
+        instanceOf.itemHashMap = new HashMap<>(hm);
+        instanceOf.itemHashSet = new HashSet<>(hm.values());
 
         // generate tabs
-        generateTabs();
+        instanceOf.generateTabs();
 
         // Adds all add on items to itemAddOnList
-        for(Item item : itemHashMap.keySet()) {
-            if(item.item_type.equalsIgnoreCase("add on")) itemAddOnList.add(item);
+        for(Item item : instanceOf.itemHashMap.keySet()) {
+            if(item.item_type.equalsIgnoreCase("add on")) instanceOf.itemAddOnList.add(item);
         }
     }
 

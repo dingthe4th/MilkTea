@@ -5,8 +5,8 @@
   Isaiah Tupal
 
 CURRENT TODOS:
-  1. MAKE CUSTOM WARNING PROMPTS
-  2. FIX TINIEST BUGS
+  1. Manually or "DAaabase-ly" add the teas to the program
+  2. ADD PICTURES
   3. EXPORT PROGRAM TO AN .EXE FILE
   4. SUBMIT TO CANVAS ON MAY 1.
   

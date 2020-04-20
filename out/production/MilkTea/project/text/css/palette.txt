@@ -3,5 +3,5 @@ Whitebase: #f4f4f4
 Gradient: #649173 - #dbd5a4
 Heavy: #0c4300
 grey: #616161
-greyLight: #616161
+greyLight: #9E9E9E
 cancel: #ee6969

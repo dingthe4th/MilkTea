@@ -28,6 +28,7 @@ import javafx.stage.StageStyle;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.URL;
 import java.util.*;
 
@@ -41,7 +42,9 @@ public class EditModeController implements Initializable {
     * item_list_info - address of text file of the items in the store
     */
 
-    private static final String item_list_info = "src/project/text/item_info/item_info.txt";
+    private static EditModeController instanceOf;
+
+    private static final String item_list_info = "/project/text/item_info/item_info.txt";
     public BorderPane EditModePane;
     public JFXTabPane tabPane;
     public Label screenStatus;
@@ -58,11 +61,11 @@ public class EditModeController implements Initializable {
     */
     public void addItem(ActionEvent e) throws IOException {
         EditModePane.setOpacity(.25);
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("../fxml/AddItemScreen.fxml"));
-        Parent root = loader.load();
-        AddItemController addItemController = loader.getController();
+
+        Parent root = FXMLLoader.load(getClass().getResource("/project/fxml/AddItemScreen.fxml"));
+
         AddItemController.injectEditModeController(this);
-        addItemController.catchInformation(itemHashMap);
+        AddItemController.catchInformation(itemHashMap);
         Scene scene = new Scene(root);
         Stage stage = new Stage();
         stage.initStyle(StageStyle.UNDECORATED);
@@ -80,11 +83,9 @@ public class EditModeController implements Initializable {
      */
     public void deleteItem(ActionEvent e) throws IOException {
         if (isItemSelected()) {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("../fxml/DeleteItemScreen.fxml"));
-            Parent root = loader.load();
+            Parent root =  FXMLLoader.load(getClass().getResource("/project/fxml/DeleteItemScreen.fxml"));
             DeleteItemController.injectEditModeController(this);
-            DeleteItemController deleteItemController = loader.getController();
-            deleteItemController.catchInformation(itemHashMap,selectedItem);
+            DeleteItemController.catchInformation(itemHashMap,selectedItem);
             Scene scene = new Scene(root);
             Stage stage = new Stage();
             stage.initStyle(StageStyle.UNDECORATED);
@@ -104,11 +105,9 @@ public class EditModeController implements Initializable {
     */
     public void editItem(ActionEvent e) throws IOException {
         if (isItemSelected()) {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("../fxml/EditItemScreen.fxml"));
-            Parent root = loader.load();
-            EditItemController editItemController = loader.getController();
+            Parent root = FXMLLoader.load(getClass().getResource("/project/fxml/EditItemScreen"));
             EditItemController.injectEditModeController(this);
-            editItemController.catchInformation(itemHashMap, selectedItem);
+            EditItemController.catchInformation(itemHashMap, selectedItem);
             Scene scene = new Scene(root);
             Stage stage = new Stage();
             stage.initStyle(StageStyle.UNDECORATED);
@@ -132,8 +131,8 @@ public class EditModeController implements Initializable {
         updateItemList();
 
         // loads new fxml file
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("../fxml/HomeScreen.fxml"));
-        Parent root = loader.load();
+
+        Parent root = FXMLLoader.load(getClass().getResource("/project/fxml/HomeScreen.fxml"));
 
         // fxmlloader -> parent -> controller -> scene -> stage
         Scene scene = new Scene(root);
@@ -170,42 +169,50 @@ public class EditModeController implements Initializable {
 
     // This method updates the text file of the item list
     private void updateItemList() throws IOException {
-        File file = new File(item_list_info);
-        /*
-        * Editor note:
-        * @param action
-        * if true - append
-        * else overwrite
-        * */
-        final boolean action = false;
-        FileWriter writer = new FileWriter(file,action);
+        try {
+            File pfile = new File(HomeScreenController.class.getProtectionDomain().getCodeSource().getLocation().toURI().getPath());
+            File file = new File(pfile.getParentFile().getAbsolutePath() + "/project/text/item_info/item_info.txt");
 
-        // write all item entry to the text file
-        for(Item entry : itemHashMap.keySet()) {
-            String s = ","; // delimiter
-            String a = entry.item_name;
-            String b = entry.item_type;
-            String c = Double.toString(entry.item_price);
-            String d = entry.item_path;
-            String x = a+s+b+s+c+s+d+"\n";
-            writer.write(x);
+
+            /*
+             * Editor note:
+             * @param action
+             * if true - append
+             * else overwrite
+             * */
+            final boolean action = false;
+            FileWriter writer = new FileWriter(file, action);
+
+            // write all item entry to the text file
+            for (Item entry : itemHashMap.keySet()) {
+                String s = ","; // delimiter
+                String a = entry.item_name;
+                String b = entry.item_type;
+                String c = Double.toString(entry.item_price);
+                String d = entry.item_path;
+                String x = a + s + b + s + c + s + d + "\n";
+                writer.write(x);
+            }
+
+            // close text file
+            writer.close();
         }
-
-        // close text file
-        writer.close();
+        catch (Exception e){
+            System.out.println(e);
+        }
     }
 
     // catch information from HomeScreenController
-    void catchInformation(HashMap<Item, String> hm) {
-        this.itemHashMap = new HashMap<>(hm);
-        this.itemHashSet = new HashSet<>(hm.values());
+    public static void catchInformation(HashMap<Item, String> hm) {
+        instanceOf.itemHashMap = new HashMap<>(hm);
+        instanceOf.itemHashSet = new HashSet<>(hm.values());
 
         // checker
-        System.out.println(itemHashMap.size());            // Expected : X
-        System.out.println(itemHashSet.size());            // Expected : X
+        System.out.println(instanceOf.itemHashMap.size());            // Expected : X
+        System.out.println(instanceOf.itemHashSet.size());            // Expected : X
 
         // generate tabs
-        generateTabs();
+        instanceOf.generateTabs();
     }
 
     // generate tabs to tab pane
@@ -273,15 +280,15 @@ public class EditModeController implements Initializable {
     }
 
     // catch information from EditMode-CHILDREN (Add/Edit/Delete)
-    void catchAndUpdateInformation(HashMap<Item, String> hm) {
-        this.itemHashMap = new HashMap<>(hm);
-        this.itemHashSet = new HashSet<>(hm.values());
+    static void catchAndUpdateInformation(HashMap<Item, String> hm) {
+        instanceOf.itemHashMap = new HashMap<>(hm);
+        instanceOf.itemHashSet = new HashSet<>(hm.values());
 
         // clear current tab panes
-        tabPane.getTabs().clear();
+        instanceOf.tabPane.getTabs().clear();
 
         // generate updated tab panes
-        generateTabs();
+        instanceOf.generateTabs();
     }
 
     // Mouse listeners to goToHomeImageButton
@@ -301,7 +308,7 @@ public class EditModeController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         // Add mouse listener to goToHomeImageButton
-        EditModePane.getStylesheets().add(getClass().getResource("../text/css/jfxStyle_2.css").toExternalForm());
+        instanceOf = this;
         setGoToHomeImageButton();
     }
 }

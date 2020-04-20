@@ -32,7 +32,9 @@ public class HomeScreenController implements Initializable {
     *  reading, editing, overwriting, etc.
     *  Don't worry, all functions are fully commented.
     * */
-    private static final File default_file_path = new File("src/project/text/item_info/item_info.txt");
+
+    private static HomeScreenController instanceOf;
+
     public AnchorPane HomeScreenPane;
 
     public JFXTextArea aboutTFTG;
@@ -57,13 +59,13 @@ public class HomeScreenController implements Initializable {
     * This is the main function of the program
     */
     public void window_cashier(ActionEvent e) throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("../fxml/CashierScreen.fxml"));
-        Parent root = loader.load();
-        CashierController cashierController = loader.getController();
-        cashierController.catchInformation(itemHashMap);
+
+
+        Parent root = FXMLLoader.load(getClass().getResource("/project/fxml/CashierScreen.fxml"));
         Scene scene = new Scene(root);
-        Stage stage = (Stage) this.HomeScreenPane.getScene().getWindow();
+        Stage stage = (Stage) HomeScreenPane.getScene().getWindow();
         stage.setScene(scene);
+        CashierController.catchInformation(itemHashMap);
         stage.show();
     }
 
@@ -74,15 +76,14 @@ public class HomeScreenController implements Initializable {
      * */
     public void window_statistics(ActionEvent e) throws IOException {
         HomeScreenPane.setOpacity(.25);
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("../fxml/StatisticsScreen.fxml"));
-        Parent root = loader.load();
-        StatisticsController statisticsController = loader.getController();
-        statisticsController.catchInformation(cupsOrderedHashMap,main_ItemOrderedHashMap,totalSalesAmount);
+        Parent root =FXMLLoader.load(getClass().getResource("/project/fxml/StatisticsScreen.fxml"));
+        StatisticsController.catchInformation(cupsOrderedHashMap,main_ItemOrderedHashMap,totalSalesAmount);
         Scene scene = new Scene(root);
         Stage stage = new Stage();
         stage.initStyle(StageStyle.UNDECORATED);
         stage.initModality(Modality.APPLICATION_MODAL);
         stage.setScene(scene);
+
         stage.showAndWait();
         HomeScreenPane.setOpacity(1.0);
     }
@@ -95,10 +96,9 @@ public class HomeScreenController implements Initializable {
      * User can choose to add/edit/delete item from the list of items
      */
     public void window_edit_mode(ActionEvent e) throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("../fxml/EditModeScreen.fxml"));
-        Parent root = loader.load();
-        EditModeController editModeController = loader.getController();
-        editModeController.catchInformation(itemHashMap);
+
+        Parent root = FXMLLoader.load(getClass().getResource("/project/fxml/EditModeScreen.fxml"));
+       EditModeController.catchInformation(itemHashMap);
         Scene scene = new Scene(root);
         Stage stage = (Stage) this.HomeScreenPane.getScene().getWindow();
         stage.setScene(scene);
@@ -117,7 +117,26 @@ public class HomeScreenController implements Initializable {
     * TODO protect this .txt file
     */
     public void loadAllItems() throws IOException {
-        FileReader fr = new FileReader(default_file_path);
+
+        /*
+        InputStream is = getClass().getResourceAsStream("3Columns.csv");
+InputStreamReader isr = new InputStreamReader(is);
+         */
+        /*
+        InputStream is = getClass().getResourceAsStream("/project/text/item_info/item_info.txt");*/
+        File f = new File("null");
+        try {
+
+//            uncomment the following and comment the File statment
+            File pfile = new File(HomeScreenController.class.getProtectionDomain().getCodeSource().getLocation().toURI().getPath());
+            f = new File(pfile.getParentFile().getAbsolutePath()+"/project/text/item_info/item_info.txt");
+          // f = new File("project/text/item_info/item_info.txt");
+        }
+        catch (Exception e){
+            System.out.println(e);
+        }
+
+        FileReader fr = new FileReader(f);
         BufferedReader br = new BufferedReader(fr);
         String line;
         while((line = br.readLine()) !=null) {
@@ -136,10 +155,10 @@ public class HomeScreenController implements Initializable {
     }
 
     /* Catch information from CashierScreen */
-    public void catchStatisticsInformation(HashMap<Integer,Integer> cups, HashMap<Item,Integer> itemOrders, double totalSalesAmount) {
-        main_ItemOrderedHashMap = new HashMap<>(itemOrders);
-        cupsOrderedHashMap = new HashMap<>(cups);
-        this.totalSalesAmount = totalSalesAmount;
+    public static void catchStatisticsInformation(HashMap<Integer,Integer> cups, HashMap<Item,Integer> itemOrders, double totalSalesAmount) {
+        instanceOf.main_ItemOrderedHashMap = new HashMap<>(itemOrders);
+        instanceOf.cupsOrderedHashMap = new HashMap<>(cups);
+        instanceOf.totalSalesAmount = totalSalesAmount;
     }
 
     public void logoutUser(ActionEvent e) throws IOException {
@@ -190,6 +209,8 @@ public class HomeScreenController implements Initializable {
 
     /* calls loadAllItems() */
     @Override public void initialize(URL location, ResourceBundle resources) {
+        instanceOf = this;
+
         try {
             loadAllItems();
             loadAnimations();

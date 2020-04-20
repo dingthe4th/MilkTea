@@ -37,6 +37,7 @@ public class AddItemController implements Initializable {
     *   cancelButton -> go back to previous screen (Edit mode controller)
     *   confirmButton -> go back to previous screen (EMC -> update current hash map)
     * */
+    private static AddItemController instanceOf;
     private static EditModeController editModeController;
     private HashMap<Item, String> itemHashMap;
     private Set<String> itemHashSet;
@@ -49,21 +50,21 @@ public class AddItemController implements Initializable {
     public JFXButton cancelButton, confirmButton;
 
     public void initialize(URL location, ResourceBundle resources) {
-        AddItemPane.getStylesheets().add(getClass().getResource("../text/css/jfxStyle_0.css").toExternalForm());
+        instanceOf = this;
     }
 
     // gets the itemImage -> itemImageView
     public void selectItemImage(ActionEvent e) throws IOException {
         File file;
         FileChooser fileChooser = new FileChooser();
-        fileChooser.setInitialDirectory(new File(default_init_dir));
+        fileChooser.setInitialDirectory(new File(System.getProperty("user.dir")));
         file = fileChooser.showOpenDialog(confirmButton.getScene().getWindow());
         /* check if file is a valid file */
         if(!file.isFile()) return;
         /* only accept image files */
         if(!ErrorPrompts.isPicture(file)) return;
-        itemPathField.setText(default_init_dir+"/"+file.getName());
-        itemImageView.setImage(new Image(file.getName()));
+        itemPathField.setText(file.getPath());
+        itemImageView.setImage(new Image(file.toURI().toURL().toExternalForm()));
     }
 
     // handles cancel button — just close the stage without return value
@@ -81,7 +82,7 @@ public class AddItemController implements Initializable {
         if (isValidInput()) {
             createNewItem();
             screenStatus.setText("Item added successfully!");
-            editModeController.catchAndUpdateInformation(itemHashMap);
+            EditModeController.catchAndUpdateInformation(itemHashMap);
             Stage stage = (Stage) confirmButton.getScene().getWindow();
             stage.close();
         }
@@ -94,7 +95,6 @@ public class AddItemController implements Initializable {
         double c = Double.parseDouble(itemPriceField.getText());
         String d = itemPathField.getText();
         ImageView e = itemImageView;
-
         // creates new item
         Item item = new Item(a,b,c,d);
         // appends item to the hash map
@@ -119,13 +119,13 @@ public class AddItemController implements Initializable {
     }
 
     // catch information from EditModeController
-    void catchInformation(HashMap<Item, String> hm) {
-        this.itemHashMap = new HashMap<>(hm);
-        this.itemHashSet = new HashSet<>(hm.values());
+    static void catchInformation(HashMap<Item, String> hm) {
+        instanceOf.itemHashMap = new HashMap<>(hm);
+        instanceOf.itemHashSet = new HashSet<>(hm.values());
 
         // checker
-        System.out.println(itemHashMap.size());            // Expected : X
-        System.out.println(itemHashSet.size());            // Expected : X
+        System.out.println(instanceOf.itemHashMap.size());            // Expected : X
+        System.out.println(instanceOf.itemHashSet.size());            // Expected : X
     }
 
     /*
