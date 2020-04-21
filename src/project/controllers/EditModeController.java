@@ -105,7 +105,7 @@ public class EditModeController implements Initializable {
     */
     public void editItem(ActionEvent e) throws IOException {
         if (isItemSelected()) {
-            Parent root = FXMLLoader.load(getClass().getResource("/project/fxml/EditItemScreen"));
+            Parent root = FXMLLoader.load(getClass().getResource("/project/fxml/EditItemScreen.fxml"));
             EditItemController.injectEditModeController(this);
             EditItemController.catchInformation(itemHashMap, selectedItem);
             Scene scene = new Scene(root);

@@ -13,6 +13,7 @@ import javafx.stage.Stage;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.URL;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -95,6 +96,7 @@ public class AddItemController implements Initializable {
         double c = Double.parseDouble(itemPriceField.getText());
         String d = itemPathField.getText();
         ImageView e = itemImageView;
+        InputStream is = getClass().getResourceAsStream(d);
         // creates new item
         Item item = new Item(a,b,c,d);
         // appends item to the hash map

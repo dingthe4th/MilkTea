@@ -41,7 +41,7 @@
                </font></JFXTextField>
          </children>
       </VBox>
-      <Label fx:id="itemPathField" layoutX="372.0" layoutY="321.0" prefHeight="17.0" prefWidth="377.0" text="src/project/image/default.png">
+      <Label fx:id="itemPathField" layoutX="372.0" layoutY="321.0" prefHeight="17.0" prefWidth="377.0" text="/project/image/default.png">
          <font>
             <Font size="14.0" />
          </font></Label>

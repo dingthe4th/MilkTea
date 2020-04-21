@@ -38,7 +38,13 @@ public class Item {
         }
         if(d.equals("default")) d = default_item_path;
 
+
         InputStream is = getClass().getResourceAsStream(d);
+        if(is == null){
+            is = new FileInputStream(d);
+            System.out.println("Im a pretty boy living in the west side");
+        }
+
 //        InputStreamReader isr = new InputStreamReader(is);
 //        BufferedReader bfr = new BufferedReader(isr);
         Image image = new Image(is);
