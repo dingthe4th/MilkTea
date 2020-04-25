@@ -4,6 +4,7 @@
 <?import com.jfoenix.controls.JFXListView?>
 <?import com.jfoenix.controls.JFXRadioButton?>
 <?import com.jfoenix.controls.JFXToggleButton?>
+<?import java.net.URL?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ToggleGroup?>
 <?import javafx.scene.effect.DropShadow?>
@@ -16,16 +17,19 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<?import java.net.URL?>
-<BorderPane fx:id="OrderScreenPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="project.controllers.OrderController">
+<BorderPane fx:id="OrderScreenPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="project.controllers.OrderController">
    <left>
       <Pane prefHeight="300.0" prefWidth="169.0" BorderPane.alignment="CENTER">
          <children>
-            <ImageView fx:id="itemImage" fitHeight="150.0" fitWidth="172.0" layoutX="10.0" layoutY="33.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../image/home.png" />
-               </image>
-            </ImageView>
+            <VBox alignment="CENTER" layoutX="10.0" layoutY="33.0">
+               <children>
+                  <ImageView fx:id="itemImage" fitHeight="150.0" fitWidth="172.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../image/default.png" />
+                     </image>
+                  </ImageView>
+               </children>
+            </VBox>
             <Label fx:id="orderNameLabel" layoutX="36.0" layoutY="183.0" text="ITEM_NAME" textFill="#616161">
                <font>
                   <Font name="System Bold" size="17.0" />

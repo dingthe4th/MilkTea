@@ -47,7 +47,6 @@ public class EditModeController implements Initializable {
     private static final String item_list_info = "/project/text/item_info/item_info.txt";
     public BorderPane EditModePane;
     public JFXTabPane tabPane;
-    public Label screenStatus;
     public ImageView goToHomeImageButton;
     private HashMap<Item,String> itemHashMap;
     private Set<String> itemHashSet;
@@ -92,9 +91,9 @@ public class EditModeController implements Initializable {
             stage.initModality(Modality.APPLICATION_MODAL);
             stage.setScene(scene);
             stage.showAndWait();
+        } else {
+            ErrorPrompts.order_delete_error(new ActionEvent());
         }
-
-        else  screenStatus.setText("Please select an item to be edited!");
     }
 
     /*  loads EditItemScreen.fxml
@@ -114,8 +113,9 @@ public class EditModeController implements Initializable {
             stage.initModality(Modality.APPLICATION_MODAL);
             stage.setScene(scene);
             stage.showAndWait();
+        } else {
+            ErrorPrompts.order_edit_error(new ActionEvent());
         }
-        else  screenStatus.setText("Please select an item to be edited!");
     }
 
     /*  loads HomeScreen.fxml
@@ -160,10 +160,6 @@ public class EditModeController implements Initializable {
            }
        }
 
-       // checker
-       if(isSelected) screenStatus.setText(selectedItem.item_name + " is selected.");
-       else screenStatus.setText("No item is selected.");
-
        return isSelected;
     }
 
@@ -206,10 +202,6 @@ public class EditModeController implements Initializable {
     public static void catchInformation(HashMap<Item, String> hm) {
         instanceOf.itemHashMap = new HashMap<>(hm);
         instanceOf.itemHashSet = new HashSet<>(hm.values());
-
-        // checker
-        System.out.println(instanceOf.itemHashMap.size());            // Expected : X
-        System.out.println(instanceOf.itemHashSet.size());            // Expected : X
 
         // generate tabs
         instanceOf.generateTabs();
@@ -265,6 +257,7 @@ public class EditModeController implements Initializable {
 
             /* get all items for specific item type in the hash set*/
             for(Item item: itemHashMap.keySet()) {
+                item.set_addon_displays();
                 if(item.getItem_type().equals(currentIterator)) {
 //                  tilePane.getChildren().add(item.item_display);
                     tempItemListView.add(item.item_display);

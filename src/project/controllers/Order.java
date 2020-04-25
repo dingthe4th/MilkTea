@@ -16,12 +16,12 @@ public class Order {
     *   size = cup size (wink wink)
     *   sugar = sugar level
     *   ice = ice level
-    *   addOnQty TODO
+    *   addOnQty
     *       should be in a list
     *   isAddOn -> is there an addOn
     *   discount -> is it discounted
     *   order = item that is ordered
-    *   addOn TODO
+    *   addOn
     *       should be in a list from CashierScreen
     */
     private final static double discount_rate = 0.25;

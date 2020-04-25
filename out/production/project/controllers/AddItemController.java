@@ -13,6 +13,7 @@ import javafx.stage.Stage;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.URL;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -33,7 +34,7 @@ public class AddItemController implements Initializable {
     *   itemTypeField -> stores the type of the new item
     *   itemPriceField -> stores the price of the new item
     *   itemPathField -> stores the path of the item image
-    *   screenStatus -> displays the status of the screen , TODO can be removed later
+    *   screenStatus -> displays the status of the screen ,
     *   cancelButton -> go back to previous screen (Edit mode controller)
     *   confirmButton -> go back to previous screen (EMC -> update current hash map)
     * */
@@ -41,7 +42,7 @@ public class AddItemController implements Initializable {
     private static EditModeController editModeController;
     private HashMap<Item, String> itemHashMap;
     private Set<String> itemHashSet;
-    private static final String default_init_dir = "src/project/image";
+    private static final String default_init_dir = "/project/image";
     public AnchorPane AddItemPane;
     public ImageView itemImageView;
     public JFXTextField itemNameField, itemTypeField, itemPriceField;
@@ -60,6 +61,7 @@ public class AddItemController implements Initializable {
         fileChooser.setInitialDirectory(new File(System.getProperty("user.dir")));
         file = fileChooser.showOpenDialog(confirmButton.getScene().getWindow());
         /* check if file is a valid file */
+        if(file == null) return;
         if(!file.isFile()) return;
         /* only accept image files */
         if(!ErrorPrompts.isPicture(file)) return;
@@ -95,6 +97,7 @@ public class AddItemController implements Initializable {
         double c = Double.parseDouble(itemPriceField.getText());
         String d = itemPathField.getText();
         ImageView e = itemImageView;
+        InputStream is = getClass().getResourceAsStream(d);
         // creates new item
         Item item = new Item(a,b,c,d);
         // appends item to the hash map
@@ -122,10 +125,6 @@ public class AddItemController implements Initializable {
     static void catchInformation(HashMap<Item, String> hm) {
         instanceOf.itemHashMap = new HashMap<>(hm);
         instanceOf.itemHashSet = new HashSet<>(hm.values());
-
-        // checker
-        System.out.println(instanceOf.itemHashMap.size());            // Expected : X
-        System.out.println(instanceOf.itemHashSet.size());            // Expected : X
     }
 
     /*

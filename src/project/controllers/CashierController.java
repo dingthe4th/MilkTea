@@ -53,7 +53,7 @@ public class CashierController implements Initializable {
      *      maps the order to its quantity (will be used in the statistics function)
      *      e.g. Item -> chocolate, 1 when ordered at instance 1
      *      When another order has chocolate drink, the 1 will increment to 2
-     *  itemAddOnList TODO
+     *  itemAddOnList
      *      this is the array list of the add on items
      *      should be passed to order screen
      *  itemHashMap
@@ -96,7 +96,7 @@ public class CashierController implements Initializable {
         orderTableView.setItems(orderObservableList);
         orderDetailsColumn.setCellValueFactory(new PropertyValueFactory<>("orderDetails"));
         orderPriceColumn.setCellValueFactory(new PropertyValueFactory<>("orderPrice"));
-
+        orderTableView.setPlaceholder(new Label("Click an item to start an order."));
         // Add mouse listener to goToHomeImageButton
         setGoToHomeImageButton();
 
@@ -204,6 +204,11 @@ public class CashierController implements Initializable {
 
         // Removes selected item to the current order list
         Order selectedOrder = orderTableView.getSelectionModel().getSelectedItem();
+
+        // Warns the user that no item is selected
+        if (selectedOrder == null) ErrorPrompts.order_void_error(new ActionEvent());
+
+        // Void an order
         if(selectedOrder != null) {
             orderObservableList.remove(selectedOrder);
 
@@ -216,7 +221,6 @@ public class CashierController implements Initializable {
                     current_itemOrderedHashMap.replace(item,current_itemOrderedHashMap.get(item)-1);
             }
         }
-
         calculateCurrentOrderTotalPrice();
     }
 
@@ -268,10 +272,6 @@ public class CashierController implements Initializable {
         calculateCurrentOrderTotalPrice();
     }
 
-
-
-
-
     // This method is used to catch information from HomeScreen
     static void catchInformation(HashMap<Item, String> hm) {
         instanceOf.itemHashMap = new HashMap<>(hm);
@@ -292,10 +292,6 @@ public class CashierController implements Initializable {
         * Tab names are based from the item type of the shop
         * e.g. Red, Black, Blue, ... , AddOns.
         * see main folder <MilkTea> -> 'models' folder for information
-        *
-        * TODO:
-        *  choose how to click an item registered | tilepane is not working as is
-        *  experimenting list view
         * */
 
         Iterator iterator = itemHashSet.iterator();

@@ -30,7 +30,7 @@ public class Item {
     public ImageView item_image = new ImageView();
     public HBox item_display = new HBox(30);
 
-    // constructor
+    // Constructor
     Item(String a, String b, double c, String d) throws IOException {
         double img_size = image_size;
         if(b.equalsIgnoreCase("add on")) {
@@ -42,7 +42,6 @@ public class Item {
         InputStream is = getClass().getResourceAsStream(d);
         if(is == null){
             is = new FileInputStream(d);
-            System.out.println("Im a pretty boy living in the west side");
         }
 
 //        InputStreamReader isr = new InputStreamReader(is);
@@ -60,12 +59,47 @@ public class Item {
 
     // creates an HBox to be displayed to the G.U.I.
     private void create_item_display() {
-        item_display.setMaxSize(200,200);
+        if(!item_type.equalsIgnoreCase("add on")) {
+            item_display.setMaxSize(750,200);
+            Label a = new Label(item_name);
+            Label b = new Label(Double.toString(item_price));
+            a.setPrefWidth(180);
+            b.setPrefWidth(180);
+            VBox vBox = new VBox(20);
+            vBox.getChildren().addAll(a,b);
+            vBox.setPrefWidth(180);
+            item_display.getChildren().addAll(item_image,vBox);
+        }
+        else {
+            item_display.setMaxSize(750,200);
+            Label a = new Label(item_name);
+            Label b = new Label(Double.toString(item_price));
+            a.setPrefWidth(100);
+            b.setPrefWidth(100);
+            VBox vBox = new VBox(10);
+            vBox.getChildren().addAll(a,b);
+            vBox.setPrefWidth(100);
+            item_display.getChildren().addAll(item_image,vBox);
+            item_display.setSpacing(10);
+        }
+    }
+
+    // edits the display for add on items for EditModeScreen
+    public void set_addon_displays() {
+        if(!item_type.equalsIgnoreCase("add on")) return;
+        item_display.getChildren().clear();
+        item_image.setFitHeight(100);
+        item_image.setFitWidth(100);
+        item_display.setMaxSize(750,200);
         Label a = new Label(item_name);
         Label b = new Label(Double.toString(item_price));
+        a.setPrefWidth(180);
+        b.setPrefWidth(180);
         VBox vBox = new VBox(20);
         vBox.getChildren().addAll(a,b);
+        vBox.setPrefWidth(180);
         item_display.getChildren().addAll(item_image,vBox);
+        item_display.setSpacing(30);
     }
 
     public HBox getItem_display() { return item_display; }

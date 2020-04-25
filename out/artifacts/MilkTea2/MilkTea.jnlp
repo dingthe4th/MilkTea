@@ -8,7 +8,7 @@
   </information>
   <resources>
     <j2se version="1.6+" href="http://java.sun.com/products/autodl/j2se"/>
-    <jar href="MilkTea.jar" size="3304653" download="eager" />
+    <jar href="MilkTea.jar" size="9083351" download="eager" />
     <jar href="jfoenix-8.0.8.jar" size="2708772" download="eager" />
     <jar href="opencsv-5.1.jar" size="200354" download="eager" />
   </resources>

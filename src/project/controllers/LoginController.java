@@ -98,7 +98,6 @@ public class LoginController implements Initializable {
     }
 
     public void window_exit(ActionEvent e) {
-        // TODO This is function 5 stated above
         boolean confirm = ErrorPrompts.warning_confirmation(new ActionEvent());
         if(confirm) System.exit(0);
     }
@@ -108,7 +107,7 @@ public class LoginController implements Initializable {
             goToHomeScreen();
         }
         catch (Exception e){
-            System.out.println("I just want this to be done man"+e);
+            System.out.println(e);
         }
     }
 

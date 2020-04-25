@@ -32,7 +32,7 @@ public class EditItemController implements Initializable {
      *   itemTypeField -> stores the type of the new item
      *   itemPriceField -> stores the price of the new item
      *   itemPathField -> stores the path of the item image
-     *   screenStatus -> displays the status of the screen , TODO can be removed later
+     *   screenStatus -> displays the status of the screen
      *   cancelButton -> go back to previous screen (Edit mode controller)
      *   confirmButton -> go back to previous screen (EMC -> update current hash map)
      * */
@@ -40,7 +40,7 @@ public class EditItemController implements Initializable {
     private static EditModeController editModeController;
     private HashMap<Item, String> itemHashMap;
     private Set<String> itemHashSet;
-    private static final String default_init_dir = "src/project/image";
+    private static final String default_init_dir = "/project/image";
     public AnchorPane EditItemPane;
     public ImageView itemImageView;
     public JFXTextField itemNameField, itemTypeField, itemPriceField;
@@ -57,13 +57,13 @@ public class EditItemController implements Initializable {
     public void selectItemImage(ActionEvent e) throws IOException {
         File file;
         FileChooser fileChooser = new FileChooser();
-        fileChooser.setInitialDirectory(new File(default_init_dir));
+        fileChooser.setInitialDirectory(new File(System.getProperty("user.dir")));
         file = fileChooser.showOpenDialog(confirmButton.getScene().getWindow());
         /* check if file is a valid file */
         if(!file.isFile()) return;
         /* only accept image files */
         if(!ErrorPrompts.isPicture(file)) return;
-        itemPathField.setText(default_init_dir+"/"+file.getName());
+        itemPathField.setText("/"+file.getName());
         itemImageView.setImage(new Image(file.getName()));
     }
 
@@ -141,9 +141,6 @@ public class EditItemController implements Initializable {
         instanceOf.itemImageView.setImage(selectedItem.item_image.getImage());
         instanceOf.screenStatus.setText("Editing item: " + selectedItem.item_name);
 
-        // checker
-        System.out.println(instanceOf.itemHashMap.size());            // Expected : X
-        System.out.println(instanceOf.itemHashSet.size());            // Expected : X
     }
 
     /*

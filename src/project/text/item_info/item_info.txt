@@ -1,5 +1,24 @@
-Sabu3,single,69.0,/project/image/default.png
-Isaiah,Malandi pero pogi,69.0,/project/image/default.png
-DingXD,add on,60.0,/project/image/default.png
-Sabu4,single,69.0,/project/image/default.png
-Soju "A" flavored,add on,100.0,/project/image/default.png
+COFFEE JELLY,ADD ON,30.0,/addon_coffeejelly.png
+CREAM PUFF,ADD ON,40.0,/addon_creampuff.png
+PURPLE TEA 3,PURPLE,100.0,/tea_purple.png
+GREEN TEA 4,GREEN,120.0,/tea_green.png
+ORANGE TEA 1,ORANGE,100.0,/tea_orange.png
+PURPLE TEA 2,PURPLE,100.0,/tea_purple.png
+BLUE TEA 3,BLUE,115.0,/tea_blue.png
+PURPLE TEA 4,PURPLE,125.0,/tea_purple.png
+PURPLE TEA 6,PURPLE,100.0,/tea_purple.png
+PUDDING,ADD ON,100.0,/addon_pudding.png
+TEA ORANGE 3,ORANGE,115.0,/tea_orange.png
+GRASS JELLY,ADD ON,30.0,/add_on_grassjelly.png
+PURPLE TEA 1,PURPLE,100.0,/tea_purple.png
+RED TEA 2,RED,130.0,/tea_red.png
+PEARL,ADD ON,10.0,/addon_pearl.png
+GREEN TEA 3,GREEN,115.0,/tea_green.png
+BLUE TEA 2,BLUE,100.0,/tea_blue.png
+ORANGE TEA 2,ORANGE,120.0,/tea_orange.png
+COOKIE,ADD ON,45.0,/addon_cookie.png
+CUP CAKE,ADD ON,55.0,/addon_cupcake.png
+BROWN TEA 1,BROWN,100.0,/addon_cupcake.png
+RED TEA 1,RED,125.0,/tea_red.png
+GREEN TEA 2,GREEN,100.0,/tea_green.png
+PURPLE TEA 5,PURPLE,100.0,/tea_purple.png

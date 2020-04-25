@@ -2,6 +2,7 @@
 
 <?import com.jfoenix.controls.JFXButton?>
 <?import com.jfoenix.controls.JFXTextField?>
+<?import java.net.URL?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
@@ -11,8 +12,7 @@
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
-<?import java.net.URL?>
-<AnchorPane fx:id="AddItemPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="475.0" prefWidth="768.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="project.controllers.AddItemController">
+<AnchorPane fx:id="AddItemPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="475.0" prefWidth="768.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="project.controllers.AddItemController">
    <children>
       <Rectangle arcHeight="40.0" arcWidth="40.0" fill="#f4f4f4" height="261.0" layoutX="358.0" layoutY="104.0" stroke="#9e9e9e" strokeType="INSIDE" width="406.0" />
       <ImageView fitHeight="637.0" fitWidth="522.0" layoutX="453.0" layoutY="-115.0" opacity="0.5">
@@ -41,7 +41,7 @@
                </font></JFXTextField>
          </children>
       </VBox>
-      <Label fx:id="itemPathField" layoutX="372.0" layoutY="321.0" prefHeight="17.0" prefWidth="377.0" text="src/project/image/default.png">
+      <Label fx:id="itemPathField" layoutX="372.0" layoutY="321.0" prefHeight="17.0" prefWidth="377.0" text="/project/image/default.png">
          <font>
             <Font size="14.0" />
          </font></Label>
@@ -53,7 +53,7 @@
       <Rectangle arcHeight="25.0" arcWidth="25.0" fill="WHITE" height="50.0" layoutX="38.0" layoutY="22.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="50.0" />
       <ImageView fitHeight="35.0" fitWidth="35.0" layoutX="46.0" layoutY="30.0">
          <image>
-            <Image url="@../image/delete.png" />
+            <Image url="@../image/add.png" />
          </image>
       </ImageView>
       <HBox layoutX="396.0" layoutY="415.0" spacing="20.0">

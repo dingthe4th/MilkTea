@@ -96,9 +96,8 @@ public class HomeScreenController implements Initializable {
      * User can choose to add/edit/delete item from the list of items
      */
     public void window_edit_mode(ActionEvent e) throws IOException {
-
         Parent root = FXMLLoader.load(getClass().getResource("/project/fxml/EditModeScreen.fxml"));
-       EditModeController.catchInformation(itemHashMap);
+        EditModeController.catchInformation(itemHashMap);
         Scene scene = new Scene(root);
         Stage stage = (Stage) this.HomeScreenPane.getScene().getWindow();
         stage.setScene(scene);
@@ -107,27 +106,24 @@ public class HomeScreenController implements Initializable {
 
     /* Handles program termination */
     public void window_exit(ActionEvent e) {
-        // TODO This is function 5 stated above
         boolean confirm = ErrorPrompts.warning_confirmation(new ActionEvent());
         if(confirm) System.exit(0);
     }
 
     /* This method reads all items from the text
     * file file_info.txt.
-    * TODO protect this .txt file
     */
     public void loadAllItems() throws IOException {
 
         /*
         InputStream is = getClass().getResourceAsStream("3Columns.csv");
-InputStreamReader isr = new InputStreamReader(is);
-         */
-        /*
-        InputStream is = getClass().getResourceAsStream("/project/text/item_info/item_info.txt");*/
+        InputStreamReader isr = new InputStreamReader(is);
+        InputStream is = getClass().getResourceAsStream("/project/text/item_info/item_info.txt");
+        */
         File f = new File("null");
         try {
 
-//            uncomment the following and comment the File statment
+        // Uncomment the following and comment the File statement
             File pfile = new File(HomeScreenController.class.getProtectionDomain().getCodeSource().getLocation().toURI().getPath());
             f = new File(pfile.getParentFile().getAbsolutePath()+"/project/text/item_info/item_info.txt");
           // f = new File("project/text/item_info/item_info.txt");
@@ -165,12 +161,9 @@ InputStreamReader isr = new InputStreamReader(is);
         boolean confirm = ErrorPrompts.warning_logout(new ActionEvent());
         if (!confirm) return;
 
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("../fxml/LoginScreen.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/project/fxml/LoginScreen.fxml"));
         Parent root = loader.load();
-        //HomeScreenController hsc = loader.getController();
-        //hsc.catchStatisticsInformation(cupsOrderedHashMap,main_ItemOrderedHashMap,totalSalesAmount);
 
-        // fxmlloader -> parent -> controller -> scene -> stage
         Scene scene = new Scene(root);
         Stage stage = (Stage) HomeScreenPane.getScene().getWindow();
         stage.setScene(scene);

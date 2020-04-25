@@ -53,7 +53,7 @@ public class StatisticsController implements Initializable {
     private HashMap<Item,Integer> main_ItemOrderedHashMap = new HashMap<>();
     private double totalSalesAmount;
 
-    //information for generating and exporting report
+    // Information for generating and exporting report
     private int itemSold;
     private int addOnSold;
 
@@ -73,6 +73,9 @@ public class StatisticsController implements Initializable {
         teaNameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
         teaNameQuantityColumn.setCellValueFactory(new PropertyValueFactory<>("quantity"));
 
+        // Set placeholders to table view (Display when table view is empty)
+        teaTypeTableView.setPlaceholder(new Label(""));
+        teaNameTableView.setPlaceholder(new Label(""));
     }
 
     // This method close the current window
@@ -125,30 +128,31 @@ public class StatisticsController implements Initializable {
 
         // Choose directory
         DirectoryChooser directoryChooser = new DirectoryChooser();
-
-
         directoryChooser.setInitialDirectory(new File(System.getProperty("user.home")));
         File dir =  directoryChooser.showDialog(chooser);
 
-        //create file
+        // If user pressed cancel button
+        if(dir == null) return;
+
+        // Create file
         File report = new File(dir.getAbsolutePath() + "/Report" +  java.time.LocalDate.now() + ".csv");
         try{
             FileWriter filewriter = new FileWriter(report);
             CSVWriter csvWriter = new CSVWriter(filewriter);
-            //to space out tables
+            // To space out tables
             String [] newLineRow= {""};
-            // date
-            String[] row1 = {"Date ", java.time.LocalDate.now()+""};
+            // Date
+            String[] row1 = {"Date ", java.time.LocalDate.now().toString() + ""};
             csvWriter.writeNext(row1);
-            //Total amount
+            // Total amount
             String[] row2= {"Total Amount", totalSalesAmount+""};
             csvWriter.writeNext(row2);
-            //total cups sold
+            // Total cups sold
 
             int s=0,l=0,m=0;
             for(Integer cupSize : cupsOrderedHashMap.keySet()) {
                 if(cupSize.equals(1)) {
-                   s=cupsOrderedHashMap.get(cupSize);
+                    s=cupsOrderedHashMap.get(cupSize);
                 } else if (cupSize.equals(2)) {
                     m=cupsOrderedHashMap.get(cupSize);
                 } else if (cupSize.equals(3)) {
@@ -194,14 +198,8 @@ public class StatisticsController implements Initializable {
             System.out.println(e);
         }
 
-        /*
-            status message saying that file has been generated
-         */
-        statusMessage.setText("File Report" +  java.time.LocalDate.now() + ".csv");
-
-
-
-
+        // Status message about the filename of the file
+        statusMessage.setText("File Report " +  java.time.LocalDate.now() + ".csv generated!");
     }
 
 

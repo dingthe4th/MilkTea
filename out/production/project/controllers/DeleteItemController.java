@@ -79,16 +79,12 @@ public class DeleteItemController implements Initializable {
         instanceOf.itemPathField.setText(item.item_path);
         instanceOf.itemImageView.setImage(item.item_image.getImage());
         instanceOf.screenStatus.setText("Deleting item: " + item.item_name);
-
-        // checker
-        System.out.println(instanceOf.itemHashMap.size());            // Expected : X
-        System.out.println(instanceOf.itemHashSet.size());            // Expected : X
     }
 
    /*
      This function injects EditModeController into this controller
      < Gets called from EditModeController to be injected>
-     Confused about what this function does? So am I!instan
+     Confused about what this function does? So am I!
      Go to this link and study them:
      https://www.java-forums.org/javafx/97288-how-return-value-modal-window-back-parent.html
   */
