@@ -1,0 +1,10 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="MilkTea:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/MilkTea_jar</output-path>
+    <root id="archive" name="MilkTea.jar">
+      <element id="module-output" name="MilkTea" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/resources/jfoenix-8.0.8.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/resources/opencsv-5.1.jar" path-in-jar="/" />
+    </root>
+  </artifact>
+</component>
